@@ -1,0 +1,10 @@
+# Unity .gitignore file.
+WolfPack/.DS_Store
+WolfPack/Library
+WolfPack/Library/*
+WolfPack/*.csproj
+WolfPack/*.sln
+WolfPack/*.userprefs
+WolfPack/Temp
+WolfPack/*.pidb
+WolfPack/Build
