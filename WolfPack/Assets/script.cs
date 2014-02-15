@@ -34,25 +34,29 @@ public class script: MonoBehaviour
 			Debug.Log ("Clicked");		
 		}
 
-		if (tcpclnt.Connected && Input.GetButtonDown("Jump")) // left click
+		if (tcpclnt.Connected && Input.GetButtonDown("Jump")) // spacebar
 		{
 			Debug.Log ("Pressed Space; Encoding Data");
-			ASCIIEncoding asen= new ASCIIEncoding();
+			ASCIIEncoding asen = new ASCIIEncoding();
 			byte[] ba = asen.GetBytes("GetInput");
 			//byte[] data = new byte[str.Length * sizeof(char)];
 			//System.Buffer.BlockCopy(str.ToCharArray(), 0, data, 0, data.Length);
 
 			Debug.Log("Transmitting.....");
-			stm.Write(ba, 0, ba.Length);
+			stm.BeginWrite(ba, 0, ba.Length, new AsyncCallback(myWriteCallBack), stm);
+			//stm.Write(ba, 0, ba.Length);
 
 			//*
 			byte[] bb = new byte[100];
-			int k = stm.Read(bb, 0, 100);
+			stm.BeginRead(bb, 0, bb.Length, new AsyncCallback(myReadCallBack), stm);
+			//int k = stm.Read(bb, 0, 100);
 			string op = asen.GetString(bb);
-			string[] words = op.Split(' ');
+			//string[] words = op.Split(' ');
 			Debug.Log (op);
 			//*/
 
+
+			//stm.Close();
 			//tcpclnt.Close();
 		}
 		else if(!tcpclnt.Connected)
@@ -60,6 +64,20 @@ public class script: MonoBehaviour
 			Debug.Log("need to connect");
 			Destroy(this.gameObject);
 		}
+
+
+	}
+
+	public static void myWriteCallBack(IAsyncResult ar)
+	{
+		NetworkStream myNetworkStream = (NetworkStream)ar.AsyncState;
+		myNetworkStream.EndWrite(ar);
+	}
+
+	public static void myReadCallBack(IAsyncResult ar)
+	{
+		NetworkStream myNetworkStream = (NetworkStream)ar.AsyncState;
+		myNetworkStream.EndRead(ar);
 	}
 
 	void OnDestroy()

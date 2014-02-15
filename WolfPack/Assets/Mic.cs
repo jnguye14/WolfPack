@@ -3,11 +3,14 @@ using System.IO;
 using UnityEditor; // EditorUtility
 using UnityEngine;
 using System.Collections;
+using System.Speech.Recognition;
+using System.Speech.AudioFormat;
+using System.Speech.Synthesis;
 
 [RequireComponent(typeof(AudioSource))]
 public class Mic : MonoBehaviour
 {
-	public string microphoneName = "Built-in Microphone";
+	public string microphoneName = "Built-in Microphone"; // should probably use null for default microphone
 	public bool hasPermission = false;
 	public KeyCode startKey = KeyCode.Space;
 	public KeyCode stopKey = KeyCode.Backspace;
@@ -21,6 +24,7 @@ public class Mic : MonoBehaviour
 		// Request permission to use both webcam and microphone.
 		yield return Application.RequestUserAuthorization (UserAuthorization.Microphone);
 
+		// TODO: remove "true ||" before official build. temporary for play testing within Unity
 		if (true || Application.HasUserAuthorization(UserAuthorization.Microphone))
 		{
 			// we got permission. Set up microphone.
@@ -39,9 +43,45 @@ public class Mic : MonoBehaviour
 			Debug.Log("Need permission to use microphone");
 		}
 //#endif
+
+		/*
+		// create speech recognizer
+		SpeechRecognizer sr = new SpeechRecognizer();
+
+		// create grammar with choices
+		Choices colors = new Choices();
+		colors.Add(new string[] {"red", "green", "blue"});
+		GrammarBuilder gb = new GrammarBuilder();
+		gb.Append(colors);
+		// Create the Grammar instance.
+		Grammar g = new Grammar(gb);
+
+		// Load grammar into recognizer
+		sr.LoadGrammar (g);
+
+		// give it events
+		sr.SpeechRecognized += new EventHandler<SpeechRecognizedEventArgs>(sr_SpeechRecognized);
+		//*/
+
 		yield return null;
 	}
-	
+
+	/*// event handler
+	void sr_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
+	{
+		Debug.Log ("said something, that it recognized");
+		//MessageBox.Show(e.Result.Text);
+		if (e.Result.Text == "red")
+		{
+			GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+			cube.transform.position = Vector3.zero;
+		} else if (e.Result.Text == "green") {
+			GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+			sphere.transform.position = Vector3.zero;
+		}
+		// make something appear in unity
+	}//*/
+
 	// Update is called once per frame
 	void Update ()
 	{
@@ -80,7 +120,7 @@ public class Mic : MonoBehaviour
 		if (!Microphone.IsRecording (microphoneName))
 		{
 			audio.clip = Microphone.Start (microphoneName, false, 10, 44100);
-			// micName, loopRecording, numSecs, freq);
+			// micName, loopRecording, numSecs, freqHz);
 		}
 		else
 		{
@@ -142,5 +182,18 @@ public class Mic : MonoBehaviour
 		{
 			Debug.Log ("unable to save, still recording");
 		}
+	}
+
+	// http://www.kaappine.fi/tutorials/using-microphone-input-in-unity3d/
+	float GetAveragedVolume()
+	{
+		float[] data = new float[256];
+		float a = 0;
+		audio.GetOutputData(data,0);
+		foreach(float s in data)
+		{
+			a += Mathf.Abs(s);
+		}
+		return a/256;
 	}
 }
