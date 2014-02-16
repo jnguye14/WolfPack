@@ -12,6 +12,7 @@ public class script: MonoBehaviour
 	private const int listenPort = 29129;
 	Socket client;
 	IPEndPoint remoteEP;
+	Color currentColor = Color.clear;
 
 	void Start()
 	{
@@ -36,25 +37,20 @@ public class script: MonoBehaviour
 
 	void Update ()
 	{
+		this.gameObject.renderer.material.color = currentColor;
 		if (Input.GetMouseButtonDown (0)) {
 			Debug.Log ("Clicked"); // Just so we could make sure Unity is actually running
 		}
 
-		if (Input.GetButtonDown("Jump")) // spacebar
+		//if (Input.GetButtonDown("Jump")) // spacebar
 		{
-			Debug.Log ("Pressed Space; Encoding Data");
-
-			//string str = "GetInput";
-			//byte[] data = new byte[str.Length * sizeof(char)];
-			//System.Buffer.BlockCopy(str.ToCharArray(), 0, data, 0, data.Length);
-
 			Debug.Log ("Transmitting...");
 			if(client.Connected)
 			{
-				//ASCIIEncoding asen = new ASCIIEncoding();
-				//byte[] ba = asen.GetBytes("GetInput");
+				// string converted to byte[] to send
 				byte[] ba = Encoding.ASCII.GetBytes("GetInput\n");
 
+				// send the byte[]
 				client.BeginSend(ba, 0, ba.Length,
 				                 SocketFlags.None,
 				                 new AsyncCallback(myWriteCallBack),
@@ -67,26 +63,17 @@ public class script: MonoBehaviour
 
 
 			Debug.Log ("Receiving Data...");
-			byte[] buffer = new byte[1024];
 			if(client.Connected)
 			{
+				// stateobject holds information for callback
 				StateObject state = new StateObject();
 				state.workSocket = client;
 
+				// receive the information (see callback)
 				client.BeginReceive(state.buffer, 0, StateObject.BufferSize,
 				                    0,
 				                    new AsyncCallback(myReadCallBack),
 				                    state);
-
-				/*
-				client.BeginReceive(buffer, 0, buffer.Length,
-				                    SocketFlags.None,
-				                    new AsyncCallback(myReadCallBack),
-				                    client);
-				//*/
-				string returnData = Encoding.ASCII.GetString(buffer);
-				//string returnData = asen.GetString (buffer);
-				Debug.Log ("Received: " + returnData);
 			}
 			else
 			{
@@ -105,54 +92,64 @@ public class script: MonoBehaviour
 	}
 
 	// call back methods
-	public static void myWriteCallBack(IAsyncResult ar)
+	public void myWriteCallBack(IAsyncResult ar)
 	{
 		Socket s = (Socket) ar.AsyncState;
 		int send = s.EndSend(ar);
 	}
 	
-	public static void myReadCallBack(IAsyncResult ar)
+	public void myReadCallBack(IAsyncResult ar)
 	{
-		//Socket s = (Socket) ar.AsyncState;
-		//int receive = s.EndReceive(ar);
+		// Retrieve the state object and the client socket from the asynchronous state object.
+		StateObject state = (StateObject) ar.AsyncState;
+		Socket client = state.workSocket;
 
-		try
+		// Read data from the remote device.
+		int bytesRead = client.EndReceive(ar);
+		if (bytesRead > 0)
 		{
-			// Retrieve the state object and the client socket from the asynchronous state object.
-			StateObject state = (StateObject) ar.AsyncState;
-			Socket client = state.workSocket;
-
-			// Read data from the remote device.
-			int bytesRead = client.EndReceive(ar);
-			if (bytesRead > 0)
+			// interpret result and act accordingly
+			string response = Encoding.ASCII.GetString(state.buffer, 0, bytesRead);
+			if(response.Substring(0,response.Length-2) == "green")
 			{
-				// There might be more data, so store the data received so far.
-				state.sb.Append(Encoding.ASCII.GetString(state.buffer,0,bytesRead));
-				Debug.Log (state.sb.ToString());
-
-				/*//  Get the rest of the data.
-				client.BeginReceive(state.buffer, 0, StateObject.BufferSize,
-				                    0,
-				                    new AsyncCallback(myReadCallBack),
-				                    state);//*/
+				currentColor = Color.green;
+			}
+			else if(response.Substring(0,response.Length-2) == "red")
+			{
+				currentColor = Color.red;
+			}
+			else if(response.Substring(0,response.Length-2) == "black")
+			{
+				currentColor = Color.black;
+			}
+			else if(response.Substring(0,response.Length-2) == "blue")
+			{
+				currentColor = Color.blue;
+			}
+			else if(response.Substring(0,response.Length-2) == "gray")
+			{
+				currentColor = Color.gray;
+			}
+			else if(response.Substring(0,response.Length-2) == "cyan")
+			{
+				currentColor = Color.cyan;
+			}
+			else if(response.Substring(0,response.Length-2) == "magenta")
+			{
+				currentColor = Color.magenta;
+			}
+			else if(response.Substring(0,response.Length-2) == "white")
+			{
+				currentColor = Color.white;
+			}
+			else if(response.Substring(0,response.Length-2) == "yellow")
+			{
+				currentColor = Color.yellow;
 			}
 			else
 			{
-				string response = "";
-				// All the data has arrived; put it in response.
-				if (state.sb.Length > 1)
-				{
-					response = state.sb.ToString();
-				}
-
-				// Signal that all bytes have been received.
-				//receiveDone.Set();
+				currentColor = Color.clear;
 			}
-		}
-		catch (Exception e)
-		{
-			Debug.Log ("5");
-			Console.WriteLine(e.ToString());
 		}
 	}
 	
@@ -165,7 +162,5 @@ public class script: MonoBehaviour
 		public const int BufferSize = 256;
 		// Receive buffer.
 		public byte[] buffer = new byte[BufferSize];
-		// Received data string.
-		public StringBuilder sb = new StringBuilder();
 	}
 }

@@ -1,12 +1,36 @@
 import java.io.*;
 import java.net.*;
 
+//import edu.cmu.sphinx.demo.helloworld.HelloWorld;
+import edu.cmu.sphinx.frontend.util.Microphone;
+import edu.cmu.sphinx.recognizer.Recognizer;
+//import edu.cmu.sphinx.result.Result;
+import edu.cmu.sphinx.util.props.ConfigurationManager;
+
 public class ServerTest {
 	private static int portNumber = 29129;
 	
 	public static void main(String[] args) // throws IOException
 	{
-		System.out.println("hello");;
+		// create the speech recognizer
+		URL resource = ServerTest.class.getResource("servertest.config.xml");
+		ConfigurationManager cm = new ConfigurationManager(resource);		
+        Recognizer recognizer = (Recognizer) cm.lookup("recognizer");
+        recognizer.allocate();
+
+        // start the microphone or exit if the program if this is not possible
+        Microphone microphone = (Microphone) cm.lookup("microphone");
+        if (!microphone.startRecording())
+        {
+            System.out.println("Cannot start microphone.");
+            recognizer.deallocate();
+            System.exit(1);
+        }
+		
+        SpeechRecognizerThread t = new SpeechRecognizerThread(recognizer);
+        t.start();
+        
+		System.out.println("hello");
 		
 		try (
 			ServerSocket serverSocket = new ServerSocket(portNumber);
@@ -23,8 +47,9 @@ public class ServerTest {
             	// identify input
             	if(inputLine.equalsIgnoreCase("GetInput"))
             	{
-            		System.out.println("Sending message back");;
-            		String oString = "Hello World";
+            		t.getResultText();
+            		String oString = t.getResultText();//"Hello World";
+            		System.out.println("Sending message back: " + oString);
             		out.println(oString);
             		out.flush();
             	}
@@ -43,4 +68,5 @@ public class ServerTest {
             System.out.println(e.getMessage());
         }//*/
 	}
+	
 }
