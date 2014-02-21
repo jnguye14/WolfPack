@@ -9,10 +9,13 @@ using System.Text;
 
 public class script: MonoBehaviour
 {
+	public GameObject sendMessegeTo;
+
 	private const int listenPort = 29129;
 	Socket client;
 	IPEndPoint remoteEP;
 	Color currentColor = Color.clear;
+	private string response = "";
 
 	void Start()
 	{
@@ -37,7 +40,9 @@ public class script: MonoBehaviour
 
 	void Update ()
 	{
-		this.gameObject.renderer.material.color = currentColor;
+		sendMessegeTo.SendMessage("ParseData",response);
+
+		//this.gameObject.renderer.material.color = currentColor;
 		if (Input.GetMouseButtonDown (0)) {
 			Debug.Log ("Clicked"); // Just so we could make sure Unity is actually running
 		}
@@ -110,6 +115,8 @@ public class script: MonoBehaviour
 		{
 			// interpret result and act accordingly
 			string response = Encoding.ASCII.GetString(state.buffer, 0, bytesRead);
+			this.response = response.Substring(0,response.Length-2);
+
 			if(response.Substring(0,response.Length-2) == "green")
 			{
 				currentColor = Color.green;
