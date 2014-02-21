@@ -16,6 +16,11 @@ public class Fish : MonoBehaviour {
 		if (isHooked)
 		{
 			this.transform.Translate(Time.fixedDeltaTime* (hook.transform.position-this.transform.position));
+			if((hook.transform.position - this.transform.position).sqrMagnitude < 3)
+			{
+				PlayerPrefs.SetInt("Score",PlayerPrefs.GetInt("Score")+1);
+				DestroyObject(this.gameObject);
+			}
 		}
 	}
 
