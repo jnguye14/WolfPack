@@ -55,7 +55,7 @@ public class FishSpawn : MonoBehaviour {
 		{
 			currentColor = Color.cyan;
 		}
-		else if(data == "magenta")
+		else if(data == "magenta" || data == "pink" || data == "purple")
 		{
 			currentColor = Color.magenta;
 		}
@@ -92,8 +92,9 @@ public class FishSpawn : MonoBehaviour {
 		Vector3 min = Camera.main.ScreenToWorldPoint(Vector3.zero);
 		Vector3 max = Camera.main.ScreenToWorldPoint (new Vector3(Screen.width,Screen.height,0));
 
-		Vector3 position = new Vector3 (Random.Range (min.x,max.x),Random.Range(min.y,max.y),1);
+		Vector3 position = new Vector3 (Random.Range (min.x,max.x),Random.Range(min.y,max.y),-1);
 		GameObject Fish = (GameObject)Instantiate(this.Fish, position, Quaternion.identity);
+		//SpriteRenderer temp = Fish.GetComponent<SpriteRenderer>().color = color;
 		Fish.renderer.material.color = color;
 	}
 }

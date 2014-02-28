@@ -24,6 +24,15 @@ public class Fish : MonoBehaviour {
 		}
 	}
 
+	void OnGUI()
+	{
+		GUI.depth = -1;
+
+		Vector3 point = Camera.main.WorldToScreenPoint (this.transform.position);
+		GUI.color = this.renderer.material.color;
+		GUI.Label (new Rect(point.x,Screen.height-point.y,500,50), this.renderer.material.color.ToString());
+	}
+
 	void Hooked()
 	{
 		isHooked = true;

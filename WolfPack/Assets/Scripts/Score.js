@@ -1,10 +1,15 @@
-﻿#pragma strict
+#pragma strict
 @script RequireComponent(GUIText)
 
-function Start () {
+function Start() {
 	PlayerPrefs.SetInt("Score",0);
 }
 
-function Update () {
+function Update() {
 	guiText.text = "Score: " + PlayerPrefs.GetInt("Score");
+}
+
+function OnGUI()
+{
+	GUI.depth = -1;
 }
