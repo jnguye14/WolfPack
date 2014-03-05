@@ -169,31 +169,31 @@ MonoBehaviour:
   scene: 0
   PlayButton:
     serializedVersion: 2
-    x: 0
-    y: 0
-    width: 50
-    height: 20
+    x: 50
+    y: 50
+    width: 100
+    height: 50
   InstructButton:
     serializedVersion: 2
-    x: 0
-    y: 60
-    width: 50
-    height: 20
+    x: 50
+    y: 120
+    width: 100
+    height: 50
   BackButton:
     serializedVersion: 2
     x: 0
     y: 60
     width: 50
-    height: 20
+    height: 50
   MaleButton:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 50
-    height: 20
+    width: 70
+    height: 50
   FemaleButton:
     serializedVersion: 2
     x: 0
     y: 60
-    width: 50
-    height: 20
+    width: 70
+    height: 50

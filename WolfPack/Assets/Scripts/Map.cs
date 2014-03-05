@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class Map : MonoBehaviour
@@ -52,7 +52,7 @@ public class Map : MonoBehaviour
 			if (Input.GetKeyDown (KeyCode.Space))
 			{
 				// go to node's scene
-				//currentNode.SendMessage ("GoToLevel");
+				currentNode.SendMessage ("GoToLevel");
 			}
 		}
 	}

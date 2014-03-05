@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class Title : MonoBehaviour
@@ -15,6 +15,9 @@ public class Title : MonoBehaviour
 	public Rect FemaleButton = new Rect(0f,60f,50f,20f);
 
 	private string titleText = "Team Wolf Pack's Game";
+	
+	public GUISkin skin;
+	bool isOn = false;
 
 	// Use this for initialization
 	void Start ()
@@ -30,7 +33,10 @@ public class Title : MonoBehaviour
 
 	void OnGUI()
 	{
+		GUI.skin = skin;
 		GUI.Label (new Rect (Screen.width*0.25f, Screen.height * 0.1f, Screen.width*0.5f, Screen.height * 0.2f), titleText);
+
+		isOn = GUI.Toggle(new Rect(0,0,52,26),isOn,"");
 
 		switch (scene)
 		{
@@ -61,12 +67,12 @@ public class Title : MonoBehaviour
 			if (GUI.Button (MaleButton, "Male"))
 			{
 				PlayerPrefs.SetInt("Gender",0);
-				Application.LoadLevel("Pond");
+				Application.LoadLevel("World Map");
 			}
 			if(GUI.Button (FemaleButton, "Female"))
 			{
 				PlayerPrefs.SetInt("Gender",1);
-				Application.LoadLevel("Pond");
+				Application.LoadLevel("World Map");
 			}
 			break;
 		}

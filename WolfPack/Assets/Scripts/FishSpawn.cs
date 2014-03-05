@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class FishSpawn : MonoBehaviour {
@@ -83,6 +83,7 @@ public class FishSpawn : MonoBehaviour {
 			if(fish.renderer.material.color == currentColor)
 			{
 				fish.SendMessage("Hooked");
+Debug.Log("Message Sent");
 			}
 		}
 	}

@@ -1,11 +1,8 @@
-﻿using System;
+using System;
 using System.IO;
 using UnityEditor; // EditorUtility
 using UnityEngine;
 using System.Collections;
-using System.Speech.Recognition;
-using System.Speech.AudioFormat;
-using System.Speech.Synthesis;
 
 [RequireComponent(typeof(AudioSource))]
 public class Mic : MonoBehaviour
@@ -119,7 +116,7 @@ public class Mic : MonoBehaviour
 
 		if (!Microphone.IsRecording (microphoneName))
 		{
-			audio.clip = Microphone.Start (microphoneName, false, 10, 44100);
+			audio.clip = Microphone.Start (microphoneName, false, 30, 44100);
 			// micName, loopRecording, numSecs, freqHz);
 		}
 		else
@@ -164,6 +161,11 @@ public class Mic : MonoBehaviour
 		}
 	}
 
+	void SaveRec()
+	{
+		SaveRecording("MyFile");
+	}
+
 	void SaveRecording(string filename)
 	{
 		if (!hasPermission)
@@ -173,10 +175,17 @@ public class Mic : MonoBehaviour
 
 		if (!Microphone.IsRecording (microphoneName))
 		{
-			//filename += System.DateTime.Now.ToString("MM-dd-yy_hh-mm-ss") +".ogg";
+			filename += System.DateTime.Now.ToString("MM-dd-yy_hh-mm-ss") +".wav";
 			//var filepath = Path.Combine(Application.dataPath, filename);
 			//EditorUtility.ExtractOggFile(audio.clip, filepath);
-			SavWav.Save (filename, audio.clip);
+			if(SavWav.Save (filename, audio.clip))
+			{
+				Debug.Log("Saved Successfully");
+			}
+			else
+			{
+				Debug.Log("Error in Saving");
+			}
 		}
 		else
 		{
