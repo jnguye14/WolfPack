@@ -169,31 +169,32 @@ MonoBehaviour:
   scene: 0
   PlayButton:
     serializedVersion: 2
-    x: 50
-    y: 50
-    width: 100
+    x: 100
+    y: 100
+    width: 200
     height: 50
   InstructButton:
     serializedVersion: 2
-    x: 50
-    y: 120
-    width: 100
+    x: 100
+    y: 200
+    width: 200
     height: 50
   BackButton:
     serializedVersion: 2
-    x: 0
-    y: 60
-    width: 50
+    x: 100
+    y: 100
+    width: 100
     height: 50
   MaleButton:
     serializedVersion: 2
-    x: 0
-    y: 0
-    width: 70
+    x: 100
+    y: 100
+    width: 200
     height: 50
   FemaleButton:
     serializedVersion: 2
-    x: 0
-    y: 60
-    width: 70
+    x: 100
+    y: 200
+    width: 200
     height: 50
+  skin: {fileID: 11400000, guid: 45aec2ea7160f42969fbed10232fea29, type: 2}
