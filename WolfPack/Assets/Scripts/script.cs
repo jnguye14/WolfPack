@@ -14,7 +14,7 @@ public class script: MonoBehaviour
 	private const int listenPort = 29129;
 	Socket client;
 	IPEndPoint remoteEP;
-	Color currentColor = Color.clear;
+	//Color currentColor = Color.clear;
 	private string response = "";
 
 	void Start()
@@ -40,16 +40,19 @@ public class script: MonoBehaviour
 
 	void Update ()
 	{
-		sendMessegeTo.SendMessage("ParseData",response);
+        if (sendMessegeTo != null)
+        {
+            sendMessegeTo.SendMessage("ParseData", response);
+        }
 
 		//this.gameObject.renderer.material.color = currentColor;
-		if (Input.GetMouseButtonDown (0)) {
+		/*if (Input.GetMouseButtonDown (0)) {
 			Debug.Log ("Clicked"); // Just so we could make sure Unity is actually running
-		}
+		}//*/
 
 		//if (Input.GetButtonDown("Jump")) // spacebar
 		{
-			Debug.Log ("Transmitting...");
+			//Debug.Log ("Transmitting...");
 			if(client.Connected)
 			{
 				// string converted to byte[] to send
@@ -67,7 +70,7 @@ public class script: MonoBehaviour
 			}
 
 
-			Debug.Log ("Receiving Data...");
+			//Debug.Log ("Receiving Data...");
 			if(client.Connected)
 			{
 				// stateobject holds information for callback
@@ -117,6 +120,7 @@ public class script: MonoBehaviour
 			string response = Encoding.ASCII.GetString(state.buffer, 0, bytesRead);
 			this.response = response.Substring(0,response.Length-2);
 
+            /*
 			if(response.Substring(0,response.Length-2) == "green")
 			{
 				currentColor = Color.green;
@@ -156,7 +160,7 @@ public class script: MonoBehaviour
 			else
 			{
 				currentColor = Color.clear;
-			}
+			}//*/
 		}
 	}
 	

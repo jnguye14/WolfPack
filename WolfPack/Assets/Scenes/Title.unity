@@ -74,6 +74,64 @@ NavMeshSettings:
     widthInaccuracy: 16.666666
     heightInaccuracy: 10
   m_NavMesh: {fileID: 0}
+--- !u!1 &1079719031
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1079719034}
+  - 131: {fileID: 1079719033}
+  - 114: {fileID: 1079719032}
+  m_Layer: 0
+  m_Name: Concept_Title_Screen
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1079719032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1079719031}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab7dd9d80aebb08499670d1f26f35ad1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!131 &1079719033
+GUITexture:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1079719031}
+  m_Enabled: 1
+  m_Texture: {fileID: 2800000, guid: 8149d889d4b1152449ffdbf719c612d0, type: 3}
+  m_Color: {r: .5, g: .5, b: .5, a: .5}
+  m_PixelInset:
+    serializedVersion: 2
+    x: -400
+    y: -300
+    width: 800
+    height: 600
+  m_LeftBorder: 0
+  m_RightBorder: 0
+  m_TopBorder: 0
+  m_BottomBorder: 0
+--- !u!4 &1079719034
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1079719031}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: .5, y: .5, z: 0}
+  m_LocalScale: {x: 0, y: 0, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
 --- !u!1 &1946150758
 GameObject:
   m_ObjectHideFlags: 0
@@ -170,13 +228,13 @@ MonoBehaviour:
   PlayButton:
     serializedVersion: 2
     x: 100
-    y: 100
+    y: 400
     width: 200
     height: 50
   InstructButton:
     serializedVersion: 2
-    x: 100
-    y: 200
+    x: 500
+    y: 400
     width: 200
     height: 50
   BackButton:
@@ -188,13 +246,17 @@ MonoBehaviour:
   MaleButton:
     serializedVersion: 2
     x: 100
-    y: 100
-    width: 200
-    height: 50
+    y: 400
+    width: 250
+    height: 200
   FemaleButton:
     serializedVersion: 2
-    x: 100
-    y: 200
-    width: 200
-    height: 50
+    x: 500
+    y: 400
+    width: 250
+    height: 200
+  MaleIcon: {fileID: 2800000, guid: e9de5d0ccbb63364bad7dcf33bcac977, type: 3}
+  FemaleIcon: {fileID: 2800000, guid: c0cf33dbb8221a54495d05cc7eed876d, type: 3}
+  GameTitle: Team Wolf Pack's Game
+  titleFont: {fileID: 12800000, guid: 0d4a67a4399996d47bdeddbcf8f9699e, type: 3}
   skin: {fileID: 11400000, guid: 45aec2ea7160f42969fbed10232fea29, type: 2}

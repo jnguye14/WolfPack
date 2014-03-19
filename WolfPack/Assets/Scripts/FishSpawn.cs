@@ -83,7 +83,6 @@ public class FishSpawn : MonoBehaviour {
 			if(fish.renderer.material.color == currentColor)
 			{
 				fish.SendMessage("Hooked");
-Debug.Log("Message Sent");
 			}
 		}
 	}
@@ -95,7 +94,6 @@ Debug.Log("Message Sent");
 
 		Vector3 position = new Vector3 (Random.Range (min.x,max.x),Random.Range(min.y,max.y),-1);
 		GameObject Fish = (GameObject)Instantiate(this.Fish, position, Quaternion.identity);
-		//SpriteRenderer temp = Fish.GetComponent<SpriteRenderer>().color = color;
-		Fish.renderer.material.color = color;
+		Fish.SendMessage("SetColor",color);
 	}
 }

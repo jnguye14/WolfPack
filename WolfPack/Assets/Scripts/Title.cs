@@ -13,8 +13,13 @@ public class Title : MonoBehaviour
 	public Rect BackButton = new Rect(0f,60f,50f,20f);
 	public Rect MaleButton = new Rect(0f,0f,50f,20f);
 	public Rect FemaleButton = new Rect(0f,60f,50f,20f);
+    public Texture2D MaleIcon;
+    public Texture2D FemaleIcon;
+    public string GameTitle = "Team Wolf Pack's Game";
+    public Font titleFont;
 
-	private string titleText = "Team Wolf Pack's Game";
+    private string titleText = "Team Wolf Pack's Game";
+    private Font defaultFont;
 	
 	public GUISkin skin;
 	bool isOn = false;
@@ -22,7 +27,7 @@ public class Title : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-	
+        defaultFont = skin.font;
 	}
 	
 	// Update is called once per frame
@@ -33,9 +38,16 @@ public class Title : MonoBehaviour
 
 	void OnGUI()
 	{
-		GUI.skin = skin;
-		GUI.Label (new Rect (Screen.width*0.25f, Screen.height * 0.1f, Screen.width*0.5f, Screen.height * 0.2f), titleText);
-
+        GUI.skin = skin;
+        if (titleFont != null)
+        {
+            GUI.contentColor = Color.green;
+            GUI.skin.font = titleFont;
+        }//*/
+        GUI.Label(new Rect(Screen.width * 0.25f, Screen.height * 0.1f, Screen.width * 0.5f, Screen.height * 0.2f), titleText);
+        GUI.contentColor = Color.cyan;
+        GUI.skin.font = defaultFont;
+        
 		isOn = GUI.Toggle(new Rect(0,0,52,26),isOn,"");
 
 		switch (scene)
@@ -57,7 +69,7 @@ public class Title : MonoBehaviour
 		case 1:
 			if(GUI.Button (BackButton, "Back"))
 			{
-				titleText = "Team Wolf Pack's Game";
+				titleText = GameTitle;
 				scene = 0;
 			}
 			string instructText = "How To Play: kfjsdiofwsdmxcvhuis";
@@ -69,11 +81,14 @@ public class Title : MonoBehaviour
 				PlayerPrefs.SetInt("Gender",0);
 				Application.LoadLevel("World Map");
 			}
+            GUI.DrawTexture(MaleButton, MaleIcon);
+
 			if(GUI.Button (FemaleButton, "Female"))
 			{
 				PlayerPrefs.SetInt("Gender",1);
 				Application.LoadLevel("World Map");
 			}
+            GUI.DrawTexture(FemaleButton, FemaleIcon);
 			break;
 		}
 	}

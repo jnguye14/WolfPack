@@ -133,9 +133,9 @@ GUIText:
   m_PixelOffset: {x: -50, y: 250}
   m_LineSpacing: 1
   m_TabSize: 4
-  m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Font: {fileID: 12800000, guid: 3e4f0bab3130b4048b27dd66e4670266, type: 3}
   m_Material: {fileID: 0}
-  m_FontSize: 50
+  m_FontSize: 20
   m_FontStyle: 0
   m_Color:
     serializedVersion: 2
@@ -689,9 +689,9 @@ GUIText:
   m_PixelOffset: {x: -50, y: 200}
   m_LineSpacing: 1
   m_TabSize: 4
-  m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Font: {fileID: 12800000, guid: 3e4f0bab3130b4048b27dd66e4670266, type: 3}
   m_Material: {fileID: 0}
-  m_FontSize: 50
+  m_FontSize: 20
   m_FontStyle: 0
   m_Color:
     serializedVersion: 2

@@ -82,12 +82,12 @@ public class Mic : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-		//*
+		/*
 		if(Microphone.IsRecording(microphoneName))
 		{
 			Debug.Log ("recording");
 		}//*/
-
+        /*
 		if (Input.GetKeyDown (startKey))
 		{
 			StartRecording();
@@ -103,7 +103,7 @@ public class Mic : MonoBehaviour
 		if (Input.GetKeyDown (saveKey))
 		{
 			SaveRecording("myFile");	
-		}
+		}//*/
 	}
 
 	void StartRecording()
@@ -175,7 +175,7 @@ public class Mic : MonoBehaviour
 
 		if (!Microphone.IsRecording (microphoneName))
 		{
-			filename += System.DateTime.Now.ToString("MM-dd-yy_hh-mm-ss") +".wav";
+            filename += System.DateTime.Now.ToString("MM-dd-yy_hh-mm-ss");// +".ogg";
 			//var filepath = Path.Combine(Application.dataPath, filename);
 			//EditorUtility.ExtractOggFile(audio.clip, filepath);
 			if(SavWav.Save (filename, audio.clip))
