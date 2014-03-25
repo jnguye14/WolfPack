@@ -49,7 +49,7 @@ public class Map : MonoBehaviour
 				currentNode.SendMessage("GoAltForward");
 			}
 			
-			if (Input.GetKeyDown (KeyCode.Space))
+			if (Input.GetKeyDown (KeyCode.Space) || Input.GetKey(KeyCode.Return))
 			{
 				// go to node's scene
 				currentNode.SendMessage ("GoToLevel");
@@ -59,10 +59,7 @@ public class Map : MonoBehaviour
 
 	void SetNode(GameObject newNode)
 	{
-		if(newNode != null)
-		{
-			currentNode = newNode;
-			isMoving = true;
-		}
+		currentNode = newNode;
+		isMoving = true;
 	}
 }

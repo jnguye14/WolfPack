@@ -227,34 +227,34 @@ MonoBehaviour:
   scene: 0
   PlayButton:
     serializedVersion: 2
-    x: 100
-    y: 400
-    width: 200
-    height: 50
+    x: 20
+    y: 50
+    width: 25
+    height: 5
   InstructButton:
     serializedVersion: 2
-    x: 500
-    y: 400
-    width: 200
-    height: 50
+    x: 50
+    y: 50
+    width: 25
+    height: 5
   BackButton:
     serializedVersion: 2
-    x: 100
-    y: 100
-    width: 100
-    height: 50
+    x: 20
+    y: 50
+    width: 25
+    height: 10
   MaleButton:
     serializedVersion: 2
-    x: 100
-    y: 400
-    width: 250
-    height: 200
+    x: 20
+    y: 50
+    width: 20
+    height: 5
   FemaleButton:
     serializedVersion: 2
-    x: 500
-    y: 400
-    width: 250
-    height: 200
+    x: 50
+    y: 50
+    width: 20
+    height: 5
   MaleIcon: {fileID: 2800000, guid: e9de5d0ccbb63364bad7dcf33bcac977, type: 3}
   FemaleIcon: {fileID: 2800000, guid: c0cf33dbb8221a54495d05cc7eed876d, type: 3}
   GameTitle: Team Wolf Pack's Game
