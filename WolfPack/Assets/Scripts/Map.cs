@@ -12,7 +12,7 @@ public class Map : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-		Player.transform.position = currentNode.transform.position;
+        Player.transform.position = currentNode.transform.position;
 	}
 	
 	// Update is called once per frame
@@ -20,7 +20,7 @@ public class Map : MonoBehaviour
 	{
 		if (isMoving)
 		{
-			Vector3 direction = (currentNode.transform.position - Player.transform.position);
+            Vector3 direction = (currentNode.transform.position - Player.transform.position);
 			if (direction.sqrMagnitude < 0.01f)
 			{
 				isMoving = false;
@@ -30,7 +30,8 @@ public class Map : MonoBehaviour
 		}
 		else
 		{
-			if (Input.GetKeyDown (KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
+            Player.transform.position = currentNode.transform.position;
+            if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
 			{
 				// go backwards
 				currentNode.SendMessage("GoBack");

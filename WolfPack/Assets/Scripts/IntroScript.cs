@@ -34,11 +34,10 @@ public class IntroScript : MonoBehaviour
         GUI.skin = skin;
         if (titleFont != null)
         {
-            //GUI.contentColor = Color.green;
             GUI.skin.font = titleFont;
         }//*/
+        GUI.contentColor = Color.black;
         GUI.Label(new Rect(Screen.width * 0.2f, Screen.height * 0.1f, Screen.width * 0.6f, Screen.height * 0.2f), titleText);
-        //GUI.contentColor = Color.cyan;
         GUI.skin.font = defaultFont;
 
         string text = "";
@@ -81,6 +80,7 @@ public class IntroScript : MonoBehaviour
                     LetterRect.y * Screen.height / 100.0f,
                     LetterRect.width * Screen.width / 100.0f,
                     LetterRect.height * Screen.height / 100.0f);
+            GUI.skin.box.alignment = TextAnchor.MiddleCenter;
             GUI.Box(tempRect,note);
                 /*
                               NOTE
@@ -117,8 +117,8 @@ public class IntroScript : MonoBehaviour
         tempRect = new Rect(
                 Screen.width * 0.1f,
                 Screen.height * 0.3f,
-                Screen.width * 0.8f,
-                Screen.height * 0.1f);
+                Screen.width * 0.2f,
+                Screen.height * 0.5f);
         GUI.Label(tempRect, text);
 
         tempRect = new Rect(

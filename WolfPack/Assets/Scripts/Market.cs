@@ -38,6 +38,7 @@ public class Market : MonoBehaviour
         int index = 0;
         foreach(Item i in items)
         {
+            // text
             tempRect = new Rect(
                     box.x * Screen.width / 100.0f,
                     (box.y + index * box.height / items.Length) * Screen.height / 100.0f,
@@ -45,11 +46,19 @@ public class Market : MonoBehaviour
                     (box.height / items.Length) * Screen.height / 100.0f);
             GUI.Box(tempRect, " Item: " + i.name + "\n Cost: $" + i.cost + ".00");
 
-
+            // icon
             tempRect = new Rect(
-                    (box.x + box.width * 0.5f) * Screen.width / 100.0f,
+                    (box.x + box.width * 0.4f) * Screen.width / 100.0f,
                     (box.y + index * box.height / items.Length) * Screen.height / 100.0f,
-                    (box.width * 0.25f) * Screen.width / 100.0f,
+                    (box.width * 0.2f) * Screen.width / 100.0f,
+                    (box.height / items.Length) * Screen.height / 100.0f);
+            GUI.DrawTexture(tempRect, i.icon);
+
+            // buy button
+            tempRect = new Rect(
+                    (box.x + box.width * 0.6f) * Screen.width / 100.0f,
+                    (box.y + index * box.height / items.Length) * Screen.height / 100.0f,
+                    (box.width * 0.2f) * Screen.width / 100.0f,
                     (box.height / items.Length) * Screen.height / 100.0f); 
             if (GUI.Button(tempRect, "Buy"))
             {
@@ -60,10 +69,11 @@ public class Market : MonoBehaviour
                 }
             }
 
+            // sell button
             tempRect = new Rect(
-                    (box.x + box.width * 0.75f) * Screen.width / 100.0f,
+                    (box.x + box.width * 0.8f) * Screen.width / 100.0f,
                     (box.y + index * box.height / items.Length) * Screen.height / 100.0f,
-                    (box.width * 0.25f) * Screen.width / 100.0f,
+                    (box.width * 0.2f) * Screen.width / 100.0f,
                     (box.height / items.Length) * Screen.height / 100.0f); 
             if (GUI.Button(tempRect, "Sell"))
             {
@@ -92,5 +102,6 @@ public class Market : MonoBehaviour
     {
         public string name;
         public int cost;
+        public Texture2D icon;
     }
 }
