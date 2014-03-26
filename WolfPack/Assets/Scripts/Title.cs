@@ -27,7 +27,11 @@ public class Title : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-        defaultFont = skin.font;
+        titleText = GameTitle;
+        if(skin != null)
+        {
+            defaultFont = skin.font;
+        }
         PlayerPrefs.DeleteAll();
 	}
 	
@@ -45,7 +49,7 @@ public class Title : MonoBehaviour
             GUI.contentColor = Color.green;
             GUI.skin.font = titleFont;
         }//*/
-        GUI.Label(new Rect(Screen.width * 0.20f, Screen.height * 0.1f, Screen.width * 0.6f, Screen.height * 0.2f), titleText);
+        GUI.Label(new Rect(Screen.width * 0.2f, Screen.height * 0.1f, Screen.width * 0.6f, Screen.height * 0.2f), titleText);
         GUI.contentColor = Color.cyan;
         GUI.skin.font = defaultFont;
         
@@ -71,7 +75,7 @@ public class Title : MonoBehaviour
                     );
 			if(GUI.Button (tempBox, "Instructions"))
 			{
-				titleText = "Instructions";
+				titleText = "TUTORIAL";
 				scene = 1;
 			}
 			string disclaimerText = "Upon pressing play, you agree to have your voice recorded for the purposes of this application.";
@@ -88,8 +92,20 @@ public class Title : MonoBehaviour
 				titleText = GameTitle;
 				scene = 0;
 			}
-			string instructText = "How To Play: kfjsdiofwsdmxcvhuis";
-			GUI.Label (new Rect (0f, Screen.height * 0.8f, Screen.width, Screen.height * 0.2f), instructText);
+            GUI.skin.box.alignment = TextAnchor.MiddleCenter;
+            GUI.skin.box.stretchHeight = true;
+            GUI.skin.box.wordWrap = true;
+
+			string instructText =
+                    "What's that? You want to know how to play the game? Well, " +
+                    "it's as easy as speaking into a microphone! In fact, that's " +
+                    "exactly how you play. Almost every part of this game is " +
+                    "controlled using your own voice. Individual parts of the " +
+                    "game will have specific words you have to say or actions you " +
+                    "must perform. Some sections will use the mouse as well. More " +
+                    "specific instructions will be given before each specific " +
+                    "game. Now let's get out there and make some money!";
+	   		GUI.Box (new Rect (Screen.width * 0.2f, Screen.height * 0.3f, Screen.width * 0.5f, Screen.height * 0.4f), instructText);
 			break;
 		case 2: // Character Select
             // Male Button
@@ -101,7 +117,7 @@ public class Title : MonoBehaviour
             if (GUI.Button(tempBox, "Male"))
 			{
 				PlayerPrefs.SetInt("Gender",0);
-				Application.LoadLevel("World Map");
+				Application.LoadLevel("Intro");
 			}
 
             // Male Icon
@@ -121,7 +137,7 @@ public class Title : MonoBehaviour
             if (GUI.Button(tempBox, "Female"))
 			{
 				PlayerPrefs.SetInt("Gender",1);
-				Application.LoadLevel("World Map");
+				Application.LoadLevel("Intro");
 			}
 
             // Female Icon

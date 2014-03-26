@@ -43,8 +43,15 @@ public class Market : MonoBehaviour
                     (box.y + index * box.height / items.Length) * Screen.height / 100.0f,
                     box.width * Screen.width / 100.0f,
                     (box.height / items.Length) * Screen.height / 100.0f);
-            index++;
-            if (GUI.Button(tempRect, "Item: " + i.name + "\n Cost: $" + i.cost + ".00"))
+            GUI.Box(tempRect, " Item: " + i.name + "\n Cost: $" + i.cost + ".00");
+
+
+            tempRect = new Rect(
+                    (box.x + box.width * 0.5f) * Screen.width / 100.0f,
+                    (box.y + index * box.height / items.Length) * Screen.height / 100.0f,
+                    (box.width * 0.25f) * Screen.width / 100.0f,
+                    (box.height / items.Length) * Screen.height / 100.0f); 
+            if (GUI.Button(tempRect, "Buy"))
             {
                 if (PlayerPrefs.GetInt("Money") >= i.cost)
                 {
@@ -52,6 +59,21 @@ public class Market : MonoBehaviour
                     PlayerPrefs.SetInt(i.name, PlayerPrefs.GetInt(i.name) + 1);
                 }
             }
+
+            tempRect = new Rect(
+                    (box.x + box.width * 0.75f) * Screen.width / 100.0f,
+                    (box.y + index * box.height / items.Length) * Screen.height / 100.0f,
+                    (box.width * 0.25f) * Screen.width / 100.0f,
+                    (box.height / items.Length) * Screen.height / 100.0f); 
+            if (GUI.Button(tempRect, "Sell"))
+            {
+                if (PlayerPrefs.GetInt(i.name) > 0)
+                {
+                    PlayerPrefs.SetInt(i.name, PlayerPrefs.GetInt(i.name) - 1);
+                    PlayerPrefs.SetInt("Money", PlayerPrefs.GetInt("Money") + i.cost);
+                }
+            }
+            index++;
         }
 
         tempRect = new Rect(

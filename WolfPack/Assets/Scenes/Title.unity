@@ -240,7 +240,7 @@ MonoBehaviour:
   BackButton:
     serializedVersion: 2
     x: 20
-    y: 50
+    y: 80
     width: 25
     height: 10
   MaleButton:
@@ -257,6 +257,6 @@ MonoBehaviour:
     height: 5
   MaleIcon: {fileID: 2800000, guid: e9de5d0ccbb63364bad7dcf33bcac977, type: 3}
   FemaleIcon: {fileID: 2800000, guid: c0cf33dbb8221a54495d05cc7eed876d, type: 3}
-  GameTitle: Team Wolf Pack's Game
+  GameTitle: Debt or Alive
   titleFont: {fileID: 12800000, guid: 0d4a67a4399996d47bdeddbcf8f9699e, type: 3}
   skin: {fileID: 11400000, guid: 45aec2ea7160f42969fbed10232fea29, type: 2}

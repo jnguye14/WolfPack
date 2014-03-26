@@ -74,19 +74,19 @@ NavMeshSettings:
     widthInaccuracy: 16.666666
     heightInaccuracy: 10
   m_NavMesh: {fileID: 0}
---- !u!1 &122421107
+--- !u!1 &1188088947
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 122421112}
-  - 20: {fileID: 122421111}
-  - 92: {fileID: 122421110}
-  - 124: {fileID: 122421109}
-  - 81: {fileID: 122421108}
-  - 114: {fileID: 122421113}
+  - 4: {fileID: 1188088953}
+  - 20: {fileID: 1188088952}
+  - 92: {fileID: 1188088951}
+  - 124: {fileID: 1188088950}
+  - 81: {fileID: 1188088949}
+  - 114: {fileID: 1188088948}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -94,33 +94,64 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &122421108
+--- !u!114 &1188088948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1188088947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da0c7edf9ac8cca449a3ed67cbb6f0dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NextButton:
+    serializedVersion: 2
+    x: 25
+    y: 80
+    width: 20
+    height: 10
+  SkipButton:
+    serializedVersion: 2
+    x: 50
+    y: 80
+    width: 20
+    height: 10
+  LetterRect:
+    serializedVersion: 2
+    x: 30
+    y: 20
+    width: 40
+    height: 60
+  titleFont: {fileID: 0}
+  skin: {fileID: 0}
+--- !u!81 &1188088949
 AudioListener:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 122421107}
+  m_GameObject: {fileID: 1188088947}
   m_Enabled: 1
---- !u!124 &122421109
+--- !u!124 &1188088950
 Behaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 122421107}
+  m_GameObject: {fileID: 1188088947}
   m_Enabled: 1
---- !u!92 &122421110
+--- !u!92 &1188088951
 Behaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 122421107}
+  m_GameObject: {fileID: 1188088947}
   m_Enabled: 1
---- !u!20 &122421111
+--- !u!20 &1188088952
 Camera:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 122421107}
+  m_GameObject: {fileID: 1188088947}
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
@@ -144,53 +175,14 @@ Camera:
   m_TargetTexture: {fileID: 0}
   m_HDR: 0
   m_OcclusionCulling: 1
---- !u!4 &122421112
+--- !u!4 &1188088953
 Transform:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 122421107}
+  m_GameObject: {fileID: 1188088947}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
---- !u!114 &122421113
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 122421107}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c070e1a826829640bc74662b477f14b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  box:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 50
-    height: 100
-  otherBox:
-    serializedVersion: 2
-    x: 50
-    y: 0
-    width: 50
-    height: 20
-  backButton:
-    serializedVersion: 2
-    x: 50
-    y: 20
-    width: 50
-    height: 10
-  items:
-  - name: Net
-    cost: 10
-  - name: Fish
-    cost: 1
-  - name: Arrows
-    cost: 5
-  - name: Bow
-    cost: 100
-  skin: {fileID: 11400000, guid: 45aec2ea7160f42969fbed10232fea29, type: 2}

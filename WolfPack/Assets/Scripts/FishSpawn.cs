@@ -17,6 +17,13 @@ public class FishSpawn : MonoBehaviour {
 		SpawnFish(Color.magenta);
 		SpawnFish(Color.white);
 		SpawnFish(Color.yellow);
+        /*
+         * BEFORE FISHING
+
+          To start, you decide to head to head to a nearby lake. Fish
+          sell for a fairly decent price at the market, so you decide
+          to try your hand at fishing.
+        //*/
 	}
 
 	// Update is called once per frame
