@@ -86,6 +86,7 @@ GameObject:
   - 92: {fileID: 122421110}
   - 124: {fileID: 122421109}
   - 81: {fileID: 122421108}
+  - 114: {fileID: 122421113}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -123,7 +124,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: .192156866, g: .301960796, b: .474509805, a: .0196078438}
+  m_BackGroundColor: {r: .941176474, g: .941176474, b: .941176474, a: .0196078438}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -151,6 +152,105 @@ Transform:
   m_GameObject: {fileID: 122421107}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+--- !u!114 &122421113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 122421107}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d03ace473ac5fc747a3f8fd683187072, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scene: 0
+  StartButton:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 150
+    height: 50
+  AButton:
+    serializedVersion: 2
+    x: 400
+    y: 125
+    width: 150
+    height: 50
+  BButton:
+    serializedVersion: 2
+    x: 600
+    y: 125
+    width: 150
+    height: 50
+  CButton:
+    serializedVersion: 2
+    x: 400
+    y: 175
+    width: 150
+    height: 50
+  DButton:
+    serializedVersion: 2
+    x: 600
+    y: 175
+    width: 150
+    height: 50
+  Title: Peddler  Mini game
+  GameTitle: Peddler Mine-Game
+  titleFont: {fileID: 0}
+  score: 0
+  scoreT: 
+  skin: {fileID: 11400000, guid: 45aec2ea7160f42969fbed10232fea29, type: 2}
+  ScoreText: {fileID: 1215326432}
+--- !u!1 &1215326431
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1215326433}
+  - 132: {fileID: 1215326432}
+  m_Layer: 0
+  m_Name: GUI Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!132 &1215326432
+GUIText:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1215326431}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Text: Gui Text
+  m_Anchor: 0
+  m_Alignment: 0
+  m_PixelOffset: {x: 0, y: 0}
+  m_LineSpacing: 1
+  m_TabSize: 4
+  m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Material: {fileID: 0}
+  m_FontSize: 0
+  m_FontStyle: 0
+  m_Color:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_PixelCorrect: 1
+  m_RichText: 1
+--- !u!4 &1215326433
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1215326431}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: .5, y: .5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
