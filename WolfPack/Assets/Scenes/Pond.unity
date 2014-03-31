@@ -550,7 +550,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d39e7c2b9cde14c459435b0c653cadea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Fish: {fileID: 100000, guid: 3b2d0525448e2964c9d43691a194263e, type: 2}
+  Fish: {fileID: 100002, guid: 5240d57fea86de5408dd4e2061cff720, type: 2}
 --- !u!212 &1755742529
 SpriteRenderer:
   m_ObjectHideFlags: 0

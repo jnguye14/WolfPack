@@ -3,12 +3,15 @@ using System.Collections;
 
 public class Fish : MonoBehaviour {
 	public GameObject hook;
+    private Vector3 target;
     public string colorName;
 	private bool isHooked = false;
 
 	// Use this for initialization
-	void Start () {
+	void Start ()
+    {
 		hook = GameObject.Find ("Net");
+        target = GetRndPos();
 	}
 
     void SetColor(Color color)
@@ -55,15 +58,34 @@ public class Fish : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
-		if (isHooked)
-		{
-			this.transform.Translate(Time.fixedDeltaTime* (hook.transform.position-this.transform.position));
-			if((hook.transform.position - this.transform.position).sqrMagnitude < 3)
-			{
-				PlayerPrefs.SetInt("Score",PlayerPrefs.GetInt("Score")+1);
-				DestroyObject(this.gameObject);
-			}
-		}
+        // check if fish is close enough to target
+        if ((target - this.transform.position).sqrMagnitude < 3)
+        {
+            if (isHooked)
+            {
+                PlayerPrefs.SetInt("Score", PlayerPrefs.GetInt("Score") + 1);
+                DestroyObject(this.gameObject);
+            }
+            else // change target
+            {
+                target = GetRndPos();
+            }
+        }
+
+        // flip sprite accordingly to direction fish is facing
+        Vector3 direction = (target - this.transform.position).normalized;
+        if (direction.x < 0)
+        {
+            this.transform.rotation = Quaternion.identity;
+        }
+        else
+        {
+            this.transform.rotation = new Quaternion(0.0f, 180.0f, 0.0f, 0.0f);
+            direction = new Vector3(-direction.x, direction.y, direction.z);
+        }
+
+        // move fish towards target
+        this.transform.Translate(Time.fixedDeltaTime * direction);
 	}
 
 	void OnGUI()
@@ -76,8 +98,17 @@ public class Fish : MonoBehaviour {
 		GUI.Label (new Rect(point.x-30,Screen.height+20-point.y,500,50), colorName/*this.renderer.material.color.ToString()*/);
 	}
 
+    // returns a random position within the screen space
+    Vector3 GetRndPos()
+    {
+        // Note: z = 9.0f since main camera is -10.0f units away from world origin
+        Vector3 temp = new Vector3(Random.Range(0.0f, Screen.width), Random.Range(0.0f, Screen.height), 9.0f);
+        return Camera.main.ScreenToWorldPoint(temp);
+    }
+
 	void Hooked()
 	{
 		isHooked = true;
+        target = hook.transform.position;
 	}
 }

@@ -2,7 +2,7 @@
 @script RequireComponent(GUIText)
 
 function Start() {
-	PlayerPrefs.SetInt("Score",0);
+	PlayerPrefs.SetInt("Score", 0);
 }
 
 function Update() {
