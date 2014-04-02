@@ -13,6 +13,7 @@ public class IntroScript : MonoBehaviour
 	private int scene = 0;
 
 	public GUISkin skin;
+    public Texture letterTexture;
 
 	// Use this for initialization
 	void Start ()
@@ -25,9 +26,7 @@ public class IntroScript : MonoBehaviour
 	}
 	
 	// Update is called once per frame
-	void Update ()
-    {
-	}
+	void Update () { }
 
     void OnGUI()
     {
@@ -37,23 +36,26 @@ public class IntroScript : MonoBehaviour
             GUI.skin.font = titleFont;
         }//*/
         GUI.contentColor = Color.black;
-        GUI.Label(new Rect(Screen.width * 0.2f, Screen.height * 0.1f, Screen.width * 0.6f, Screen.height * 0.2f), titleText);
+        GUI.Label(new Rect(Screen.width * 0.2f, Screen.height * 0.1f, Screen.width * 0.6f, Screen.height * 0.1f), titleText);
         GUI.skin.font = defaultFont;
 
         string text = "";
-        Rect tempRect;
         switch(scene)
         {
         case 0:
             titleText = "INTRO";
             text = "You are a young ";
             text += (PlayerPrefs.GetInt("Gender") == 0) ? "boy" : "girl";
-            text += " living on their own in the woods.\n" +
-                    "Life is peaceful, albeit uneventful. But one day...";
+            text += " living on ";
+            text += (PlayerPrefs.GetInt("Gender") == 0) ? "his" : "her";
+            text += " own in the woods. Life is peaceful, albeit uneventful. But one day...";
             break;
         case 1:
             titleText = "OUTSIDE HOUSE";
-            text = "You find a note posted on the door of your house. The note reads:";
+            text = "You find a note\n posted on the door\n of your house.\n The note reads:";
+            break;
+        case 2:
+            text = "";
             string note = "\nNOTE\n\n"+
                     "ATTENTION CHEAP, NON-TAX-PAYING\n"+
                     "RESIDENT: It has come to our royal\n" +
@@ -75,13 +77,10 @@ public class IntroScript : MonoBehaviour
                     "money.\n" +
                     "     Signed,   The Royal Collection\n" +
                     "     Bureau";
-            tempRect = new Rect(
-                    LetterRect.x * Screen.width / 100.0f,
-                    LetterRect.y * Screen.height / 100.0f,
-                    LetterRect.width * Screen.width / 100.0f,
-                    LetterRect.height * Screen.height / 100.0f);
+
             GUI.skin.box.alignment = TextAnchor.MiddleCenter;
-            GUI.Box(tempRect,note);
+            GUI.DrawTexture(adjRect(LetterRect), letterTexture);
+            GUI.Label(adjRect(LetterRect),note);
                 /*
                               NOTE
                     ATTENTION CHEAP, NON-TAX-PAYING
@@ -106,39 +105,39 @@ public class IntroScript : MonoBehaviour
                          Bureau
                 //*/
             break;
-        case 2:
+        case 3:
             text = "Since you're quite fond of your home, you decide to set out at once to raise the money to pay off your debt.";
             break;
-        case 3:
+        case 4:
             Application.LoadLevel("World Map");
             break;
         }
 
-        tempRect = new Rect(
-                Screen.width * 0.1f,
-                Screen.height * 0.3f,
-                Screen.width * 0.2f,
+        Rect tempRect = new Rect(
+                Screen.width * 0.3f,
+                Screen.height * 0.2f,
+                Screen.width * 0.4f,
                 Screen.height * 0.5f);
         GUI.Label(tempRect, text);
 
-        tempRect = new Rect(
-                NextButton.x * Screen.width / 100.0f,
-                NextButton.y * Screen.height / 100.0f,
-                NextButton.width * Screen.width / 100.0f,
-                NextButton.height * Screen.height / 100.0f);
-        if (GUI.Button(tempRect, "Next"))
+        if (GUI.Button(adjRect(NextButton), "Next"))
         {
             scene++;
         }
 
-        tempRect = new Rect(
-                SkipButton.x * Screen.width / 100.0f,
-                SkipButton.y * Screen.height / 100.0f,
-                SkipButton.width * Screen.width / 100.0f,
-                SkipButton.height * Screen.height / 100.0f);
-        if (GUI.Button(tempRect, "Skip"))
+        if (GUI.Button(adjRect(SkipButton), "Skip"))
         {
             Application.LoadLevel("World Map");
         }
+    }
+
+    // returns Rectangle adjusted to screen size
+    Rect adjRect(Rect r)
+    {
+        return new Rect(
+                r.x * Screen.width / 100.0f,
+                r.y * Screen.height / 100.0f,
+                r.width * Screen.width / 100.0f,
+                r.height * Screen.height / 100.0f);
     }
 }

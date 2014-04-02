@@ -22,6 +22,8 @@ public class Title : MonoBehaviour
     private Font defaultFont;
 	
 	public GUISkin skin;
+    public GUITexture bg;
+    public Texture charSelectScreen;
 	bool isOn = false;
 
 	// Use this for initialization
@@ -36,10 +38,7 @@ public class Title : MonoBehaviour
 	}
 	
 	// Update is called once per frame
-	void Update ()
-	{
-	
-	}
+	void Update () { }
 
 	void OnGUI()
 	{
@@ -49,31 +48,23 @@ public class Title : MonoBehaviour
             GUI.contentColor = Color.green;
             GUI.skin.font = titleFont;
         }//*/
+        GUI.skin.label.alignment = TextAnchor.MiddleCenter;
         GUI.Label(new Rect(Screen.width * 0.2f, Screen.height * 0.1f, Screen.width * 0.6f, Screen.height * 0.2f), titleText);
         GUI.contentColor = Color.cyan;
         GUI.skin.font = defaultFont;
         
-		isOn = GUI.Toggle(new Rect(0,0,100,25),isOn,"Music");//52,26
+		isOn = GUI.Toggle(new Rect(0,0,100,25), isOn, "Music");//52,26
         Rect tempBox;
 		switch (scene)
 		{
 		case 0:
-            tempBox = new Rect(PlayButton.x/100.0f*Screen.width,
-                    PlayButton.y/100.0f*Screen.height,
-                    PlayButton.width/100.0f*Screen.width,
-                    PlayButton.height/100.0f*Screen.height
-                    );
-			if (GUI.Button (tempBox, "Play"))
+			if (GUI.Button (adjRect(PlayButton), "Play"))
 			{
-				titleText = "What's your gender?";
+                titleText = "";// "What's your gender?";
+                bg.texture = charSelectScreen;
 				scene = 2;
 			}
-            tempBox = new Rect(InstructButton.x / 100.0f * Screen.width,
-                    InstructButton.y / 100.0f * Screen.height,
-                    InstructButton.width / 100.0f * Screen.width,
-                    InstructButton.height / 100.0f * Screen.height
-                    );
-			if(GUI.Button (tempBox, "Instructions"))
+			if(GUI.Button (adjRect(InstructButton), "Instructions"))
 			{
 				titleText = "TUTORIAL";
 				scene = 1;
@@ -82,12 +73,7 @@ public class Title : MonoBehaviour
 			GUI.Label (new Rect (0f, Screen.height * 0.8f, Screen.width, Screen.height * 0.2f), disclaimerText);
 			break;
 		case 1: // Instructions
-            tempBox = new Rect(BackButton.x / 100.0f * Screen.width,
-                    BackButton.y / 100.0f * Screen.height,
-                    BackButton.width / 100.0f * Screen.width,
-                    BackButton.height / 100.0f * Screen.height
-                    );
-            if (GUI.Button(tempBox, "Back"))
+            if (GUI.Button(adjRect(BackButton), "Back"))
 			{
 				titleText = GameTitle;
 				scene = 0;
@@ -105,16 +91,11 @@ public class Title : MonoBehaviour
                     "must perform. Some sections will use the mouse as well. More " +
                     "specific instructions will be given before each specific " +
                     "game. Now let's get out there and make some money!";
-	   		GUI.Box (new Rect (Screen.width * 0.2f, Screen.height * 0.3f, Screen.width * 0.5f, Screen.height * 0.4f), instructText);
+	   		GUI.Box (new Rect (Screen.width * 0.25f, Screen.height * 0.3f, Screen.width * 0.5f, Screen.height * 0.4f), instructText);
 			break;
 		case 2: // Character Select
             // Male Button
-            tempBox = new Rect(MaleButton.x / 100.0f * Screen.width,
-                    MaleButton.y / 100.0f * Screen.height,
-                    MaleButton.width / 100.0f * Screen.width,
-                    MaleButton.height / 100.0f * Screen.height
-                    );
-            if (GUI.Button(tempBox, "Male"))
+            if (GUI.Button(adjRect(MaleButton), "Male"))
 			{
 				PlayerPrefs.SetInt("Gender",0);
 				Application.LoadLevel("Intro");
@@ -129,12 +110,7 @@ public class Title : MonoBehaviour
             GUI.DrawTexture(tempBox, MaleIcon);
 
             // Female Button
-            tempBox = new Rect(FemaleButton.x / 100.0f * Screen.width,
-                    FemaleButton.y / 100.0f * Screen.height,
-                    FemaleButton.width / 100.0f * Screen.width,
-                    FemaleButton.height / 100.0f * Screen.height
-                    );
-            if (GUI.Button(tempBox, "Female"))
+            if (GUI.Button(adjRect(FemaleButton), "Female"))
 			{
 				PlayerPrefs.SetInt("Gender",1);
 				Application.LoadLevel("Intro");
@@ -150,4 +126,14 @@ public class Title : MonoBehaviour
 			break;
 		}
 	}
+
+    // returns Rectangle adjusted to screen size
+    Rect adjRect(Rect r)
+    {
+        return new Rect(
+                r.x * Screen.width / 100.0f,
+                r.y * Screen.height / 100.0f,
+                r.width * Screen.width / 100.0f,
+                r.height * Screen.height / 100.0f);
+    }
 }

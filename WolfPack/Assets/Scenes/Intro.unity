@@ -85,7 +85,7 @@ GameObject:
   - 131: {fileID: 1000232338}
   - 114: {fileID: 1000232337}
   m_Layer: 8
-  m_Name: Map
+  m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -166,23 +166,24 @@ MonoBehaviour:
   NextButton:
     serializedVersion: 2
     x: 30
-    y: 80
-    width: 20
-    height: 10
+    y: 90
+    width: 10
+    height: 5
   SkipButton:
     serializedVersion: 2
-    x: 50
-    y: 80
-    width: 20
-    height: 10
+    x: 60
+    y: 90
+    width: 10
+    height: 5
   LetterRect:
     serializedVersion: 2
     x: 30
     y: 20
     width: 40
-    height: 60
+    height: 70
   titleFont: {fileID: 12800000, guid: 0d4a67a4399996d47bdeddbcf8f9699e, type: 3}
   skin: {fileID: 11400000, guid: 45aec2ea7160f42969fbed10232fea29, type: 2}
+  letterTexture: {fileID: 2800000, guid: ec3017e9524ca734dbbbec800634f4fe, type: 3}
 --- !u!81 &1188088949
 AudioListener:
   m_ObjectHideFlags: 0

@@ -2,7 +2,7 @@
 // Note: this script requires a guiText Component
 
 public var numSeconds : int = -1;
-public var isStopped : boolean = false;
+public var isStopped : boolean = true;
 
 private var startTime : int;
 private var delta : float = 0.0f;
@@ -39,6 +39,7 @@ function Update ()
 			guiText.text = "Time's up";
 			if(!isStopped)
 			{
+                this.SendMessage("TimeUpEvent");
 				this.SendMessage("StopRecording");
 				this.SendMessage("SaveRec");
 			}
