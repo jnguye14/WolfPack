@@ -69,7 +69,7 @@ public class FishSpawn : MonoBehaviour {
 		}
 		else
 		{
-			currentColor = Color.clear;
+            currentColor = Color.clear;
 		}
 		CommandFish ();
 		//Fish.renderer.material.color = currentColor;//*/

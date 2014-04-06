@@ -1,4 +1,5 @@
 ﻿#pragma strict
+@script RequireComponent(SpriteRenderer)
 
 var boySprite : Sprite;
 var girlSprite : Sprite;

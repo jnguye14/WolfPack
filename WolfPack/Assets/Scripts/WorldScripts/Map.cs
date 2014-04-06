@@ -12,6 +12,22 @@ public class Map : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
+        // default value, i.e. no previous level
+        if(PlayerPrefs.GetString("PrevLevel") == "")
+        {
+            Player.transform.position = currentNode.transform.position;
+            return;
+        }
+
+        GameObject[] Nodes = GameObject.FindGameObjectsWithTag("Node");
+        foreach (GameObject n in Nodes)
+        {
+            if (n.GetComponent<Node>().Level == PlayerPrefs.GetString("PrevLevel"))
+            {
+                currentNode = n;
+                break;
+            }
+        }
         Player.transform.position = currentNode.transform.position;
 	}
 	

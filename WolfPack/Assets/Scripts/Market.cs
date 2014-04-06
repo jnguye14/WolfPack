@@ -23,42 +23,41 @@ public class Market : MonoBehaviour
     void OnGUI()
     {
         GUI.skin = skin;
-        Rect tempRect = new Rect(
-                otherBox.x * Screen.width / 100.0f,
-                otherBox.y * Screen.height / 100.0f,
-                otherBox.width * Screen.width / 100.0f,
-                otherBox.height * Screen.height / 100.0f);
         string info = "Money: $" + PlayerPrefs.GetInt("Money") + ".00";
         foreach (Item i in items)
         {
             info += "\nNumber of " + i.name + ": " + PlayerPrefs.GetInt(i.name);
         }
-        GUI.Box(tempRect, info);
+        GUI.Box(adjRect(otherBox), info);
 
         int index = 0;
+        Rect tempRect;
         foreach(Item i in items)
         {
             // text
             tempRect = new Rect(
                     box.x * Screen.width / 100.0f,
                     (box.y + index * box.height / items.Length) * Screen.height / 100.0f,
-                    box.width * Screen.width / 100.0f,
+                    (box.width * 0.7f) * Screen.width / 100.0f,
                     (box.height / items.Length) * Screen.height / 100.0f);
-            GUI.Box(tempRect, " Item: " + i.name + "\n Cost: $" + i.cost + ".00");
+            GUI.Box(tempRect, " Item: " + i.name + "\n Description: " + i.description + "\n Cost: $" + i.cost + ".00");
 
             // icon
-            tempRect = new Rect(
-                    (box.x + box.width * 0.4f) * Screen.width / 100.0f,
+            if (i.icon != null)
+            {
+                tempRect = new Rect(
+                    (box.x + box.width * 0.7f) * Screen.width / 100.0f,
                     (box.y + index * box.height / items.Length) * Screen.height / 100.0f,
-                    (box.width * 0.2f) * Screen.width / 100.0f,
+                    (box.width * 0.1f) * Screen.width / 100.0f,
                     (box.height / items.Length) * Screen.height / 100.0f);
-            GUI.DrawTexture(tempRect, i.icon);
+                GUI.DrawTexture(tempRect, i.icon);
+            }
 
             // buy button
             tempRect = new Rect(
-                    (box.x + box.width * 0.6f) * Screen.width / 100.0f,
+                    (box.x + box.width * 0.8f) * Screen.width / 100.0f,
                     (box.y + index * box.height / items.Length) * Screen.height / 100.0f,
-                    (box.width * 0.2f) * Screen.width / 100.0f,
+                    (box.width * 0.1f) * Screen.width / 100.0f,
                     (box.height / items.Length) * Screen.height / 100.0f); 
             if (GUI.Button(tempRect, "Buy"))
             {
@@ -71,9 +70,9 @@ public class Market : MonoBehaviour
 
             // sell button
             tempRect = new Rect(
-                    (box.x + box.width * 0.8f) * Screen.width / 100.0f,
+                    (box.x + box.width * 0.9f) * Screen.width / 100.0f,
                     (box.y + index * box.height / items.Length) * Screen.height / 100.0f,
-                    (box.width * 0.2f) * Screen.width / 100.0f,
+                    (box.width * 0.1f) * Screen.width / 100.0f,
                     (box.height / items.Length) * Screen.height / 100.0f); 
             if (GUI.Button(tempRect, "Sell"))
             {
@@ -86,21 +85,27 @@ public class Market : MonoBehaviour
             index++;
         }
 
-        tempRect = new Rect(
-                backButton.x * Screen.width / 100.0f,
-                backButton.y * Screen.height / 100.0f,
-                backButton.width * Screen.width / 100.0f,
-                backButton.height * Screen.height / 100.0f);
-        if (GUI.Button(tempRect, "Back"))
+        if (GUI.Button(adjRect(backButton), "Back"))
         {
             Application.LoadLevel("World Map");
         }
+    }
+
+    // returns Rectangle adjusted to screen size
+    Rect adjRect(Rect r)
+    {
+        return new Rect(
+                r.x * Screen.width / 100.0f,
+                r.y * Screen.height / 100.0f,
+                r.width * Screen.width / 100.0f,
+                r.height * Screen.height / 100.0f);
     }
 
     [System.Serializable]
     public class Item
     {
         public string name;
+        public string description;
         public int cost;
         public Texture2D icon;
     }

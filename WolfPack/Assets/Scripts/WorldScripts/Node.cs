@@ -5,8 +5,9 @@ using System.Collections;
 public class Node : MonoBehaviour
 {
 	public string Level;
-	public string Key1;
-	public string Key2;
+	public string Key1; // key to go on path 1
+	public string Key2; // key to go on path 2
+    public string[] ReqKeysName; // keys required to enter node
     public Vector2 Coordinate = Vector2.zero;
 
     private GameObject map;
@@ -15,13 +16,13 @@ public class Node : MonoBehaviour
     private GameObject path2 = null;
     private bool isPathUnlocked;
 	private bool isAltPathUnlocked;
-
+    
 	// Use this for initialization
 	void Start () 
 	{
-		isPathUnlocked = (PlayerPrefs.GetInt (Key1) == 1) ? false : true;//true : false;
-		isAltPathUnlocked = (PlayerPrefs.GetInt (Key2) == 1) ? false : true;//true : false;
-		map = GameObject.Find ("Map");
+		isPathUnlocked = (PlayerPrefs.GetInt (Key1) > 0) ? false : true;//true : false;
+		isAltPathUnlocked = (PlayerPrefs.GetInt (Key2) > 0) ? false : true;//true : false;
+        map = GameObject.Find ("Map");
 
         if (this.transform.parent != null)
         {
@@ -87,8 +88,19 @@ public class Node : MonoBehaviour
 
 	public void GoToLevel()
 	{
-        if (Application.CanStreamedLevelBeLoaded(Level))
+        foreach(string lockName in ReqKeysName)
         {
+            if(PlayerPrefs.GetInt(lockName) == 0) // checks through all keys to see if any is missing
+            {
+                // map has HUD.cs script which handles the error message
+                map.SendMessage("MissingKey", lockName);
+                return;
+            }
+        }
+
+        if ( Application.CanStreamedLevelBeLoaded(Level))
+        {
+            PlayerPrefs.SetString("PrevLevel", Level);
             Application.LoadLevel(Level);
         }
 	}
