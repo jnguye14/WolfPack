@@ -164,14 +164,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buffer: 10
-  creditSpeed: 50
+  creditSpeed: 150
   credits: {fileID: 4900000, guid: 599a09c334da7f649a88da8d9465de40, type: 3}
   RestartButton:
     serializedVersion: 2
-    x: 0
-    y: 60
-    width: 50
-    height: 20
+    x: 80
+    y: 80
+    width: 10
+    height: 5
   skin: {fileID: 11400000, guid: 45aec2ea7160f42969fbed10232fea29, type: 2}
   titleFont: {fileID: 12800000, guid: 0d4a67a4399996d47bdeddbcf8f9699e, type: 3}
 --- !u!81 &1188088949

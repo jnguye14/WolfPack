@@ -37,7 +37,7 @@ public class HUD : MonoBehaviour
                 "\n\n Cash: $" + PlayerPrefs.GetInt("Money") + ".00" +
                 "\n\n Fish: " + PlayerPrefs.GetInt("Fish") +
                 "\n\n Level: " + m.currentNode.GetComponent<Node>().Level);
-        float iconLength = box.height / 3.0f;
+        //float iconLength = box.height / 3.0f;
         /*
         GUI.DrawTexture(new Rect(
                 (box.x + box.width - iconLength) * Screen.width / 100.0f,

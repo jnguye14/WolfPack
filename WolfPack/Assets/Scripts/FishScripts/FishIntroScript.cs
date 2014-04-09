@@ -55,7 +55,7 @@ public class FishIntroScript : MonoBehaviour
         GUI.skin.font = defaultFont;
 
         titleText = "POND"; // JIC
-        string text = "To start, you decide to head to head to a nearby lake. Fish " +
+        string text = "To start, you decide to head to a nearby lake. Fish " +
                 "sell for a fairly decent price at the market, so you decide " +
                 "to try your hand at fishing.";
 
@@ -70,7 +70,9 @@ public class FishIntroScript : MonoBehaviour
 
     void TimeUpEvent()
     {
-        PlayerPrefs.SetInt("Fish", PlayerPrefs.GetInt("Fish") + PlayerPrefs.GetInt("Score"));
+        int multiplier = 5;
+        PlayerPrefs.SetInt("Fish", PlayerPrefs.GetInt("Fish") + PlayerPrefs.GetInt("Score")); // TODO: change to numFish
+        PlayerPrefs.SetInt("Score", PlayerPrefs.GetInt("Score") + multiplier * PlayerPrefs.GetInt("Score")); // TODO: change to numFish
         scene = 2;
     }
 

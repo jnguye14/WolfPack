@@ -6,4 +6,5 @@
 
 grammar CommandList;
 
-public <greet> = ( Red | Green | Black | Blue | Gray | Cyan | Magenta | White | Yellow );
+//public <greet> = (Choose) (first | second | third | fourth) (answer);
+public <greet> = ((Choose answer) (A | B | C | D) | Red | Green | Black | Blue | Gray | Cyan | Magenta | Pink | Purple | White | Yellow );

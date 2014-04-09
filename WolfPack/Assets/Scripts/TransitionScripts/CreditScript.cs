@@ -55,11 +55,16 @@ public class CreditScript : MonoBehaviour
         GUI.Label(new Rect(Screen.width * 0.2f, Screen.height * 0.1f, Screen.width * 0.6f, Screen.height * 0.1f), titleText);
         GUI.skin.font = defaultFont;
 
+        GUILayout.BeginArea(new Rect(0, Screen.height*0.2f, Screen.width, Screen.height * 0.8f));
+
         // Draw the Scrolling Box
-        Vector2 sizeOfBox = GUI.skin.GetStyle("Box").CalcSize(new GUIContent(creditText));
-        creditLength = (int)sizeOfBox.y + 2 * buffer;
         GUI.skin.box.alignment = TextAnchor.MiddleCenter;
-        GUI.Box(new Rect(Screen.width/2-150,Screen.height - amount, sizeOfBox.x+2*buffer, creditLength), creditText);
+        //Vector2 sizeOfBox = GUI.skin.GetStyle("Box").CalcSize(new GUIContent(creditText));
+        Vector2 sizeOfBox = GUI.skin.GetStyle("label").CalcSize(new GUIContent(creditText));
+        creditLength = (int)(sizeOfBox.y + 2.0f * buffer);
+        GUI.Box(new Rect((Screen.width - sizeOfBox.x) / 2.0f - buffer, Screen.height - amount, sizeOfBox.x + 2.0f * buffer, creditLength), creditText);
+
+        GUILayout.EndArea();
 
         // Replay Button
         if (GUI.Button(adjRect(RestartButton), "Replay?"))

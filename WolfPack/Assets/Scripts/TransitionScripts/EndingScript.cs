@@ -44,17 +44,41 @@ public class EndingScript : MonoBehaviour
         {
         case 0:
             titleText = "CASTLE";
-            text = "Intro text informing player has reached castle";
+            text = "Money in hand, you decide to head to the castle to pay off your debt. Hopefully you have enough to pay off your debt!";
             break;
         case 1:
-            titleText = "GUARD";
+            titleText = "DEBT COLLECTOR";
             if (hasPaid)
             {
-                text = "You paid off your taxes!";
+                text = "Oh hey, it's the debt kid. Hi, debt\n" +
+                    "kid! Are you ready to fork over all\n" +
+                    "of that hard-earned money of yours?\n" +
+                    "I hope so, because I just LOVE me\n" +
+                    "some coinage.\n" +
+                    "     (...)\n" +
+                    "Yes, yes! It's all here! His royal\n" +
+                    "highness will be most pleased that\n" +
+                    "he won't have to mow down your\n" +
+                    "cruddy little house. And maybe I'll\n" +
+                    "take a little cut for myself... Er,\n" +
+                    "nevermind! You didn't hear that.\n" +
+                    "Anyway, congrats. Now get out of\n" +
+                    "here, debt kid!";
             }
             else
             {
-                text = "You don't have enough money, come back later";
+                text = "Oh hey, it's the debt kid. Hi, debt\n" +
+                    "kid! Are you ready to fork over all\n" +
+                    "of that hard-earned money of yours?\n" +
+                    "I hope so, because I just LOVE me\n" +
+                    "some coinage.\n" +
+                    "     (...)\n" +
+                    "What?! This isn't nearly enough!\n" +
+                    "Get out of here and don't come back\n" +
+                    "unless you've got enough to pay off\n" +
+                    "your entire debt! If you do, I'll\n" +
+                    "kick your butt AND demolish your\n" +
+                    "house. Shoo!";
                 text += "\nCurrent Amount: $"+PlayerPrefs.GetInt("Money")+".00";
                 text += "\nNeeded: $"+amount+".00";
             }
@@ -66,8 +90,15 @@ public class EndingScript : MonoBehaviour
             }
             else
             {
-                Application.LoadLevel("Credits");
+                titleText = "CASTLE";
+                text = "You finally paid off all of your debt! Now you can live in\n" +
+                    "peace. Congratulations! You've beaten the game. But if you\n" +
+                    "want to test your skill, try playing again and beating your\n" +
+                    "score!";
             }
+            break;
+        case 3:
+            Application.LoadLevel("Credits");
             break;
         }
 

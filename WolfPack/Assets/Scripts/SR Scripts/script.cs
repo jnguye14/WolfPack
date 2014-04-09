@@ -16,6 +16,7 @@ public class script: MonoBehaviour
 	IPEndPoint remoteEP;
 	//Color currentColor = Color.clear;
 	private string response = "";
+    private string prevResponse = "";
 
 	void Start()
 	{
@@ -40,9 +41,11 @@ public class script: MonoBehaviour
 
 	void Update ()
 	{
-        if (sendMessegeTo != null)
+        if (sendMessegeTo != null && prevResponse != response)
         {
             sendMessegeTo.SendMessage("ParseData", response);
+            prevResponse = response;
+            //int messagesent = 1;
         }
 
 		//this.gameObject.renderer.material.color = currentColor;

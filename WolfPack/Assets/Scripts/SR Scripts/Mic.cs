@@ -14,6 +14,15 @@ public class Mic : MonoBehaviour
 	public KeyCode playKey = KeyCode.Return;
 	public KeyCode saveKey = KeyCode.Tab;
 
+    public float sensitivity = 100.0f;
+    public float Loudness
+    {
+        get
+        {
+            return GetAveragedVolume() * sensitivity;
+        }
+    }
+
 	// Use this for initialization
 	IEnumerator Start () {
 	//void Start(){
@@ -82,12 +91,26 @@ public class Mic : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
+        /*
+        float[] spectrum = audio.GetSpectrumData(1024, 0, FFTWindow.BlackmanHarris);
+        int i = 1;
+        while (i < 1023)
+        {
+            Debug.DrawLine(new Vector3(i - 1, spectrum[i] + 10, 0), new Vector3(i, spectrum[i + 1] + 10, 0), Color.red);
+            Debug.DrawLine(new Vector3(i - 1, Mathf.Log(spectrum[i - 1]) + 10, 2), new Vector3(i, Mathf.Log(spectrum[i]) + 10, 2), Color.cyan);
+            Debug.DrawLine(new Vector3(Mathf.Log(i - 1), spectrum[i - 1] - 10, 1), new Vector3(Mathf.Log(i), spectrum[i] - 10, 1), Color.green);
+            Debug.DrawLine(new Vector3(Mathf.Log(i - 1), Mathf.Log(spectrum[i - 1]), 3), new Vector3(Mathf.Log(i), Mathf.Log(spectrum[i]), 3), Color.yellow);
+            i++;
+        }//*/
+        Debug.Log("Is Recording: " + Microphone.IsRecording(microphoneName)
+                + " Loudness: " + Loudness
+                + "\n Stream Pos: " + audio.time); // stream position goes from 0 to 30 since we're recording at 30 second intervals
 		/*
 		if(Microphone.IsRecording(microphoneName))
 		{
 			Debug.Log ("recording");
 		}//*/
-        /*
+        //*
 		if (Input.GetKeyDown (startKey))
 		{
 			StartRecording();
@@ -193,16 +216,28 @@ public class Mic : MonoBehaviour
 		}
 	}
 
+    // get's the volume of the audioclip that's currently playing
 	// http://www.kaappine.fi/tutorials/using-microphone-input-in-unity3d/
 	float GetAveragedVolume()
 	{
-		float[] data = new float[256];
+        if (audio.clip == null)
+        {
+            return -1.0f;
+        }
+        audio.loop = true;
+        audio.mute = true;
+        if (!audio.isPlaying)
+        {
+            audio.Play();
+        }
+
+        float[] data = new float[256];
 		float a = 0;
-		audio.GetOutputData(data,0);
+		audio.GetOutputData(data, 0);
 		foreach(float s in data)
 		{
 			a += Mathf.Abs(s);
 		}
-		return a/256;
+		return a/256.0f;
 	}
 }
