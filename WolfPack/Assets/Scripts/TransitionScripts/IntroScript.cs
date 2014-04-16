@@ -3,26 +3,19 @@ using System.Collections;
 
 public class IntroScript : MonoBehaviour
 {
-	public Rect NextButton = new Rect(0f,60f,50f,20f);
-	public Rect SkipButton = new Rect(0f,60f,50f,20f);
+    public GUISkin skin;
     public Rect LetterRect = new Rect(0f, 60f, 50f, 20f);
-    public Font titleFont;
+    public Rect windowRect = new Rect(0f, 0f, 100f, 100f);
 
     private string titleText = "INTRO";
-    private Font defaultFont;
-	private int scene = 0;
+    private string text = "";
+    private int scene = 0;
 
-	public GUISkin skin;
-    public Texture letterTexture;
-
-	// Use this for initialization
+    // Use this for initialization
 	void Start ()
     {
-        scene = 0;
-        if (skin != null)
-        {
-            defaultFont = skin.font;
-        }
+        windowRect = adjRect(windowRect);
+        LetterRect = adjRect(LetterRect);
 	}
 	
 	// Update is called once per frame
@@ -31,15 +24,7 @@ public class IntroScript : MonoBehaviour
     void OnGUI()
     {
         GUI.skin = skin;
-        if (titleFont != null)
-        {
-            GUI.skin.font = titleFont;
-        }//*/
-        GUI.contentColor = Color.black;
-        GUI.Label(new Rect(Screen.width * 0.2f, Screen.height * 0.1f, Screen.width * 0.6f, Screen.height * 0.1f), titleText);
-        GUI.skin.font = defaultFont;
-
-        string text = "";
+        
         switch(scene)
         {
         case 0:
@@ -52,83 +37,167 @@ public class IntroScript : MonoBehaviour
             break;
         case 1:
             titleText = "OUTSIDE HOUSE";
-            text = "You find a note\n posted on the door\n of your house.\n The note reads:";
+            text = "You find a note posted on the door of your house. The note reads:";
+            LetterRect = GUI.Window(1, LetterRect, LetterFunc, "");
             break;
         case 2:
-            text = "";
-            string note = "\nNOTE\n\n"+
-                    "ATTENTION CHEAP, NON-TAX-PAYING\n"+
-                    "RESIDENT: It has come to our royal\n" +
-                    "attention that you have been living\n" +
-                    "in this forest without royal\n" +
-                    "permission for ten years. As this\n" +
-                    "land now belongs to the kingdom,\n" +
-                    "you must pay a royal property tax\n" +
-                    "for each year you've been living\n" +
-                    "here! Your current royal debt is\n" +
-                    "[MONEY GOAL] and must be paid in\n" +
-                    "full by the end of the day. Failure\n" +
-                    "to do so will result in your house\n" +
-                    "being royally demolished. We\n" +
-                    "realize this hasn't been the law in\n" +
-                    "the past, but we also don't care.\n" +
-                    "Sorry. But not THAT sorry, because\n" +
-                    "we really want your sweet sweet\n" +
-                    "money.\n" +
-                    "     Signed,   The Royal Collection\n" +
-                    "     Bureau";
-
-            GUI.skin.box.alignment = TextAnchor.MiddleCenter;
-            GUI.DrawTexture(adjRect(LetterRect), letterTexture);
-            GUI.Label(adjRect(LetterRect),note);
-                /*
-                              NOTE
-                    ATTENTION CHEAP, NON-TAX-PAYING
-                    RESIDENT: It has come to our royal
-                    attention that you have been living
-                    in this forest without royal
-                    permission for ten years. As this
-                    land now belongs to the kingdom,
-                    you must pay a royal property tax
-                    for each year you've been living
-                    here! Your current royal debt is
-                    [MONEY GOAL] and must be paid in
-                    full by the end of the day. Failure
-                    to do so will result in your house
-                    being royally demolished. We
-                    realize this hasn't been the law in
-                    the past, but we also don't care.
-                    Sorry. But not THAT sorry, because
-                    we really want your sweet sweet
-                    money.
-                         Signed,   The Royal Collection
-                         Bureau
-                //*/
-            break;
-        case 3:
             text = "Since you're quite fond of your home, you decide to set out at once to raise the money to pay off your debt.";
             break;
-        case 4:
+        case 3:
             Application.LoadLevel("World Map");
             break;
+        }    
+
+        windowRect = GUI.Window(0, windowRect, windowFunc, "");
+    }
+
+    void windowFunc(int id)
+    {
+        // window buffer values
+        float leftBuffer = 50; // should be same as rightBuffer ...and bottomBuffer?
+        float topBuffer = 100;
+
+        // Title
+        float width = windowRect.width - 2 * leftBuffer;
+        float height = GUI.skin.label.CalcHeight(new GUIContent(titleText), width);
+        Rect tempRect = new Rect(leftBuffer, topBuffer, width, height);
+
+        GUI.Label(tempRect, titleText);
+
+        // Text
+        GUI.skin.box.wordWrap = true;
+        float height2 = GUI.skin.box.CalcHeight(new GUIContent(text), width); ;
+        tempRect = new Rect(leftBuffer, topBuffer + height, width, height2);
+        GUI.Box(tempRect, text);
+
+        // Prev Button
+        float btnWidth = width / 3.0f;
+        float height3 = GUI.skin.button.CalcHeight(new GUIContent("Next"), width); ;
+        tempRect = new Rect(leftBuffer, topBuffer + height + height2, btnWidth, height3);
+        if(GUI.Button(tempRect, "Prev") && scene != 0)
+        {
+            scene--;
         }
 
-        Rect tempRect = new Rect(
-                Screen.width * 0.3f,
-                Screen.height * 0.2f,
-                Screen.width * 0.4f,
-                Screen.height * 0.5f);
-        GUI.Label(tempRect, text);
+        // Skip Button
+        tempRect = new Rect(leftBuffer + btnWidth, topBuffer + height + height2, btnWidth, height3);
+        if (GUI.Button(tempRect, "Skip"))
+        {
+            Application.LoadLevel("World Map");
+        }
 
-        if (GUI.Button(adjRect(NextButton), "Next"))
+        // Next Button
+        tempRect = new Rect(leftBuffer + 2*btnWidth, topBuffer + height + height2, btnWidth, height3);
+        if (GUI.Button(tempRect, "Next"))
         {
             scene++;
         }
 
-        if (GUI.Button(adjRect(SkipButton), "Skip"))
-        {
-            Application.LoadLevel("World Map");
-        }
+        // make window draggable
+        GUI.DragWindow();
+    }
+
+    void LetterFunc(int id)
+    {
+        GUILayout.BeginVertical();
+        
+        GUILayout.Space(50);
+        GUILayout.Label("NOTE", "PlainText");
+        
+        GUILayout.Space(10);
+        GUILayout.Label("", "Divider");
+
+        string note = "ATTENTION CHEAP, NON-TAX-PAYING " +
+                "RESIDENT:";
+        GUILayout.Space(10);
+        GUILayout.Label(note, "CursedText");
+
+        GUILayout.Space(10);
+        GUILayout.Label("", "Divider");
+
+        GUILayout.BeginHorizontal();
+        note = " It has come to our royal " +
+                 "attention that you have been living " +
+                 "in this forest without royal " +
+                 "permission for ten years. As this " +
+                 "land now belongs to the kingdom, " +
+                 "you must pay a royal property tax " +
+                 "for each year you've been living " +
+                 "here! Your current royal debt is " +
+                 "[MONEY GOAL] and must be paid in " +
+                 "full by the end of the day. Failure " +
+                 "to do so will result in your house " +
+                 "being royally demolished. We " +
+                 "realize this hasn't been the law in " +
+                 "the past, but we also don't care. " +
+                 "Sorry. But not THAT sorry, because " +
+                 "we really want your sweet sweet " +
+                 "money.";
+        GUILayout.Space(10);
+        GUILayout.Label(note, "PlainText");
+        //GUILayout.TextArea(note);
+        GUILayout.EndHorizontal();
+
+        GUILayout.Space(20);
+        GUILayout.BeginHorizontal();
+        GUILayout.Space(200);
+        note = "Signed,\n" +
+                "The Royal Collection\n" +
+                "Bureau";
+        GUILayout.Label(note, "CursedText");
+        GUILayout.EndHorizontal();
+        GUILayout.EndVertical();
+
+        //GUILayout.Label("Plain Text", "PlainText");
+        //GUILayout.Label("Italic Text", "ItalicText");
+        //GUILayout.Label("Light Text", "LightText");
+        //GUILayout.Label("Bold Text", "BoldText");
+        //GUILayout.Label("Disabled Text", "DisabledText");
+        //GUILayout.Label("Cursed Text", "CursedText");
+        //GUILayout.Label("Legendary Text", "LegendaryText");
+        //GUILayout.Label("Outlined Text", "OutlineText");
+        //GUILayout.Label("Italic Outline Text", "ItalicOutlineText");
+        //GUILayout.Label("Light Outline Text", "LightOutlineText");
+        //GUILayout.Label("Bold Outline Text", "BoldOutlineText");
+
+            /*
+                            NOTE
+                ATTENTION CHEAP, NON-TAX-PAYING
+                RESIDENT: It has come to our royal
+                attention that you have been living
+                in this forest without royal
+                permission for ten years. As this
+                land now belongs to the kingdom,
+                you must pay a royal property tax
+                for each year you've been living
+                here! Your current royal debt is
+                [MONEY GOAL] and must be paid in
+                full by the end of the day. Failure
+                to do so will result in your house
+                being royally demolished. We
+                realize this hasn't been the law in
+                the past, but we also don't care.
+                Sorry. But not THAT sorry, because
+                we really want your sweet sweet
+                money.
+                        Signed,   The Royal Collection
+                        Bureau
+            //*/
+
+        // seal the letter and make it draggable
+        WaxSeal(LetterRect.width, LetterRect.height);
+        GUI.DragWindow();
+    }
+
+    void WaxSeal(float x, float y)
+    {
+	    float WSwaxOffsetX = x - 120;
+	    float WSwaxOffsetY = y - 115;
+	    float WSribbonOffsetX = x - 114;
+	    float WSribbonOffsetY = y - 83;
+	
+	    GUI.Label(new Rect(WSribbonOffsetX, WSribbonOffsetY, 0, 0), "", "RibbonBlue");
+	    GUI.Label(new Rect(WSwaxOffsetX, WSwaxOffsetY, 0, 0), "", "WaxSeal");
     }
 
     // returns Rectangle adjusted to screen size

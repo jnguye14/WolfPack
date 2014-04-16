@@ -50,17 +50,6 @@ After answering the strange peddler's riddles, you bid him
 farewell. Perhaps you can make more money elsewhere.
     //*/
 
-    // Use this for initialization
-	void Start ()
-    {
-        PlayerPrefs.SetInt("Money",100);
-	}
-	
-	// Update is called once per frame
-	void Update ()
-    {
-	}
-
     void OnGUI()
     {
         GUI.skin = skin;

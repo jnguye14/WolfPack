@@ -3,12 +3,11 @@ using System.Collections;
 
 public class HUD : MonoBehaviour
 {
-    public Texture2D CoinIcon;
-    public Texture2D FishIcon;
+    //public Texture2D CoinIcon;
+    //public Texture2D FishIcon;
 	public GUISkin skin;
 
     public Rect box = new Rect(0.0f,0.0f,50.0f,30.0f);
-    public Rect errorBox = new Rect(0.0f, 30.0f, 50.0f, 30.0f); 
     private Map m;
 
     // error message vars
@@ -19,52 +18,52 @@ public class HUD : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
+        box = adjRect(box);
         m = this.GetComponent<Map>();
-	}
-	
-	// Update is called once per frame
-	void Update ()
-	{
 	}
 
 	void OnGUI()
 	{
         GUI.skin = skin;
-        GUI.contentColor = Color.black;
-        GUI.skin.box.alignment = TextAnchor.MiddleLeft;
-        GUI.Box(adjRect(box),
-                " Score: " + PlayerPrefs.GetInt("Score") + 
-                "\n\n Cash: $" + PlayerPrefs.GetInt("Money") + ".00" +
-                "\n\n Fish: " + PlayerPrefs.GetInt("Fish") +
-                "\n\n Level: " + m.currentNode.GetComponent<Node>().Level);
-        //float iconLength = box.height / 3.0f;
-        /*
-        GUI.DrawTexture(new Rect(
-                (box.x + box.width - iconLength) * Screen.width / 100.0f,
-                (box.y + iconLength) * Screen.height / 100.0f,
-                iconLength * Screen.width / 100.0f,
-                iconLength * Screen.height / 100.0f),
-                CoinIcon);
-        GUI.DrawTexture(new Rect(
-                (box.x + box.width - iconLength) * Screen.width / 100.0f,
-                (box.y + 2*iconLength) * Screen.height / 100.0f,
-                iconLength * Screen.width / 100.0f,
-                iconLength * Screen.height / 100.0f),
-                FishIcon);
-        //*/
+        box = GUI.Window(0, box, windowFunc, "");
+	}
 
+    void windowFunc(int id)
+    {
+        // window buffer values
+        float leftBuffer = 50; // should be same as rightBuffer
+        float topBuffer = 100;
+        //float bottomBuffer = 65;
+
+        // main HUD box
+        GUI.skin.box.alignment = TextAnchor.MiddleLeft;
+        string text = "Score: " + PlayerPrefs.GetInt("Score") +
+                "\nCash: $" + PlayerPrefs.GetInt("Money") + ".00" +
+                "\nFish: " + PlayerPrefs.GetInt("Fish") +
+                "\nLevel: " + m.currentNode.GetComponent<Node>().Level;
+        float width = box.width - 2 * leftBuffer;
+        float height = GUI.skin.box.CalcHeight(new GUIContent(text), width);
+        Rect tempRect = new Rect(leftBuffer, topBuffer, width, height);
+        GUI.Box(tempRect, text);
+
+        // in case of error message
         if (showError)
         {
             if (Time.time - startTime > 1.0f) // after one second
             {
                 showError = false;
             }
-            Color temp = GUI.backgroundColor;
+            float height2 = GUI.skin.box.CalcHeight(new GUIContent("error"), width);
+            tempRect = new Rect(leftBuffer, topBuffer+height, width, height2);
+            Color c = GUI.backgroundColor;
             GUI.backgroundColor = Color.red;
-            GUI.Box(adjRect(errorBox), errorMsg);
-            GUI.backgroundColor = temp;
+            GUI.Box(tempRect, errorMsg);
+            GUI.backgroundColor = c;
         }
-	}
+
+        // make window draggable
+        GUI.DragWindow();
+    }
 
     // returns Rectangle adjusted to screen size
     Rect adjRect(Rect r)

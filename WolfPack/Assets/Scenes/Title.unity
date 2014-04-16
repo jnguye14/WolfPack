@@ -224,7 +224,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce48fb9ace04e0f429511cc95d8e3a58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scene: 0
+  skin: {fileID: 11400000, guid: 7953503d9e83f8d469b84619849edd4e, type: 2}
   PlayButton:
     serializedVersion: 2
     x: 20
@@ -243,22 +243,25 @@ MonoBehaviour:
     y: 75
     width: 10
     height: 5
-  MaleButton:
+  windowRect:
     serializedVersion: 2
-    x: 20
-    y: 50
-    width: 20
-    height: 5
-  FemaleButton:
-    serializedVersion: 2
-    x: 60
-    y: 50
-    width: 20
-    height: 5
+    x: 25
+    y: 10
+    width: 50
+    height: 60
+  background: {fileID: 1079719033}
+  charSelectScreen: {fileID: 2800000, guid: 8149d889d4b1152449ffdbf719c612d0, type: 3}
   MaleIcon: {fileID: 2800000, guid: e9de5d0ccbb63364bad7dcf33bcac977, type: 3}
   FemaleIcon: {fileID: 2800000, guid: c0cf33dbb8221a54495d05cc7eed876d, type: 3}
-  GameTitle: 
-  titleFont: {fileID: 12800000, guid: 0d4a67a4399996d47bdeddbcf8f9699e, type: 3}
-  skin: {fileID: 11400000, guid: 45aec2ea7160f42969fbed10232fea29, type: 2}
-  bg: {fileID: 1079719033}
-  charSelectScreen: {fileID: 2800000, guid: 8149d889d4b1152449ffdbf719c612d0, type: 3}
+  maleWinRect:
+    serializedVersion: 2
+    x: 20
+    y: 20
+    width: 25
+    height: 60
+  femaleWinRect:
+    serializedVersion: 2
+    x: 55
+    y: 20
+    width: 25
+    height: 60
