@@ -431,11 +431,10 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 906808018}
-  - 33: {fileID: 906808017}
   - 135: {fileID: 906808016}
-  - 23: {fileID: 906808015}
   - 114: {fileID: 906808019}
   - 120: {fileID: 906808020}
+  - 212: {fileID: 906808015}
   m_Layer: 0
   m_Name: Node4b
   m_TagString: Node
@@ -443,19 +442,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!23 &906808015
-Renderer:
+--- !u!212 &906808015
+SpriteRenderer:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 906808014}
   m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 10754, guid: 0000000000000000e000000000000000, type: 0}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -464,6 +463,8 @@ Renderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_SortingLayerID: 0
+  m_Sprite: {fileID: 21300000, guid: 9467974cfc28eb94ab0e8047ab144580, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!135 &906808016
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -476,13 +477,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: .5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!33 &906808017
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 906808014}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!4 &906808018
 Transform:
   m_ObjectHideFlags: 0
@@ -807,7 +801,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_SortingLayerID: 0
-  m_Sprite: {fileID: 21300000, guid: e821ff2f7b986ba49b3c4df19f04d05f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: abc44e6970dd74c40a99a47aaff09a92, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!135 &1585717875
 SphereCollider:
@@ -1044,7 +1038,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_SortingLayerID: 0
-  m_Sprite: {fileID: 21300000, guid: 99943fb779a66e2438a9592c05d49d69, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7127648575c30b246ae4462e83cc6bf6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!4 &1950831678
 Transform:
@@ -1073,8 +1067,7 @@ MonoBehaviour:
   Level: Peddler
   Key1: 
   Key2: 
-  ReqKeysName:
-  - Net
+  ReqKeysName: []
   Coordinate: {x: 30, y: 50}
 --- !u!120 &1950831680
 LineRenderer:
@@ -1177,7 +1170,8 @@ MonoBehaviour:
   Level: Pond
   Key1: 
   Key2: 
-  ReqKeysName: []
+  ReqKeysName:
+  - Net
   Coordinate: {x: 50, y: 25}
 --- !u!120 &2015669943
 LineRenderer:

@@ -48,15 +48,19 @@ public class EndingScript : MonoBehaviour
             break;
         case 1:
             titleText = "DEBT COLLECTOR";
-            if (hasPaid)
-            {
-                text = "Oh hey, it's the debt kid. Hi, debt\n" +
+            text = "Oh hey, it's the debt kid. Hi, debt\n" +
                     "kid! Are you ready to fork over all\n" +
                     "of that hard-earned money of yours?\n" +
                     "I hope so, because I just LOVE me\n" +
-                    "some coinage.\n" +
-                    "     (...)\n" +
-                    "Yes, yes! It's all here! His royal\n" +
+                    "some coinage.\n";
+            break;
+        case 2:
+            text = "     (...)\n";
+            break;
+        case 3:
+            if (hasPaid)
+            {
+                text = "Yes, yes! It's all here! His royal\n" +
                     "highness will be most pleased that\n" +
                     "he won't have to mow down your\n" +
                     "cruddy little house. And maybe I'll\n" +
@@ -67,13 +71,7 @@ public class EndingScript : MonoBehaviour
             }
             else
             {
-                text = "Oh hey, it's the debt kid. Hi, debt\n" +
-                    "kid! Are you ready to fork over all\n" +
-                    "of that hard-earned money of yours?\n" +
-                    "I hope so, because I just LOVE me\n" +
-                    "some coinage.\n" +
-                    "     (...)\n" +
-                    "What?! This isn't nearly enough!\n" +
+                text = "What?! This isn't nearly enough!\n" +
                     "Get out of here and don't come back\n" +
                     "unless you've got enough to pay off\n" +
                     "your entire debt! If you do, I'll\n" +
@@ -83,7 +81,7 @@ public class EndingScript : MonoBehaviour
                 text += "\nNeeded: $"+amount+".00";
             }
             break;
-        case 2:
+        case 4:
             if (!hasPaid)
             {
                 Application.LoadLevel("World Map");
@@ -97,7 +95,7 @@ public class EndingScript : MonoBehaviour
                     "score!";
             }
             break;
-        case 3:
+        case 5:
             Application.LoadLevel("Credits");
             break;
         }

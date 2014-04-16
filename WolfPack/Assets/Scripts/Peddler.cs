@@ -14,16 +14,16 @@ public class Peddler : MonoBehaviour {
 		public Rect DButton = new Rect(0f,0f,70f,20f);
 		
 	public string Title= "Peddler  Mini game";
-	string riddle1 = "How much would a would chuck chuck if a would chuck could chuck wood?";
-	string riddle2 = "I am greater than God, more evil than the devil, the poor have me, the rich don't, and if you eat me, you'll die. What am I?";
-	string riddle3 = "I am the beginning of the end, the end of every place.I am the beginning of eternity, the end of time and space. What am I?";
-	string riddle4 = "A natural state, I'm sought by all.Go without me, and you shall fall.You do me when you spend,and use me when you eat to no end. What am I?";
-	string riddle5 = "riddle 5";
-	string riddle6 ="riddle 6";
-	string riddle7 ="riddle 7";
-	string riddle8 ="riddle 8";
-	string riddle9 ="riddle 9";
-	string riddle10 ="riddle 10";
+    string riddle1 = "How much would a would chuck chuck if a would chuck could chuck wood?";
+    string riddle2 = "I am greater than God,\n more evil than the devil,\n the poor have me,\n the rich don't,\n and if you eat me,\n you'll die.\n What am I?";
+    string riddle3 = "I am the beginning of the end,\n the end of every place.\nI am the beginning of eternity,\n the end of time and space.\n What am I?";
+    string riddle4 = "A natural state,\n I'm sought by all.\nGo without me,\n and you shall fall.\nYou do me when you spend,\nand use me when you eat to no end.\n What am I?";
+    string riddle5 = "Mary's father has 4 children;\n three are named Nana, Nene, and Nini.\n So what is is the 4th child's name?";
+    string riddle6 = "The more of them you take,\n the more you leave behind.\n What are they?";
+    string riddle7 = "It lives without a body,\n hears without ears,\n speaks without a mouth,\n and is born in air.\n What is it?";
+    string riddle8 = "It cannot be seen,\ncannot be felt cannot be heard,\n cannot be smelt it lies behind stars\n and under hills and empty holes it fills";
+    string riddle9 = "I got it in a forest but didn't want it.\n Once I had it, I couldn't see it.\n The more I searched for it, the less I liked it.\n I took it home in my hand because I could not find it.\n What was it?";
+    string riddle10 = "A clever thief in the olden days was charged\n with treason against the king and sentenced to death.\n But the king decided to be a little lenient\n so he let the thief choose his own way to die.\n What way should the thief choose?";
 	
 	public int riddleNumber;
 	Random rand = new Random ();
@@ -86,7 +86,11 @@ public class Peddler : MonoBehaviour {
 				GUI.contentColor = Color.green;
 				GUI.skin.font = titleFont;
 			}//*/
-			GUI.Label(new Rect(Screen.width * 0.25f, Screen.height * 0.1f, Screen.width * 0.5f, Screen.height * 0.2f), titleText);
+            GUI.skin.label.fontSize = 20;
+            Vector2 dimensions = GUI.skin.GetStyle("Label").CalcSize(new GUIContent(titleText));
+            Rect riddleRect = new Rect(Screen.width/2.0f - dimensions.x / 2.0f, Screen.height * 0.1f,dimensions.x,dimensions.y);
+			//GUI.Label(new Rect(Screen.width * 0.25f, Screen.height * 0.1f, Screen.width * 0.5f, Screen.height * 0.2f), titleText);
+            GUI.Label(riddleRect, titleText);
 		GUI.contentColor = Color.cyan;
 			GUI.skin.font = defaultFont;
             GUI.Box(new Rect(Screen.width / 2, Screen.height / 2, 100, 25), "Score: " + scoreT);
@@ -372,7 +376,7 @@ public class Peddler : MonoBehaviour {
 				score -=5;
 				
 			}
-			if (GUI.Button (BButton, "5b")|| voiceAnswer== "b"){			
+			if (GUI.Button (BButton, "Mary")|| voiceAnswer== "b"){			
 				riddleNumber = Random.Range(1,11);
 				if(riddleNumber==1){
 					titleText = riddle1;
@@ -433,7 +437,7 @@ public class Peddler : MonoBehaviour {
 				score -=5;
 				
 			}
-			if (GUI.Button (BButton, "6b")|| voiceAnswer== "b"){			
+			if (GUI.Button (BButton, "Footsteps")|| voiceAnswer== "b"){			
 				riddleNumber = Random.Range(1,11);
 				if(riddleNumber==1){
 					titleText = riddle1;
@@ -494,7 +498,7 @@ public class Peddler : MonoBehaviour {
 				score -=5;
 				
 			}
-			if (GUI.Button (BButton, "7b")|| voiceAnswer== "b"){			
+			if (GUI.Button (BButton, "Echo")|| voiceAnswer== "b"){			
 				riddleNumber = Random.Range(1,11);
 				if(riddleNumber==1){
 					titleText = riddle1;
@@ -555,7 +559,7 @@ public class Peddler : MonoBehaviour {
 				score -=5;
 				
 			}
-			if (GUI.Button (BButton, "8b")|| voiceAnswer== "b"){			
+			if (GUI.Button (BButton, "Darkness")|| voiceAnswer== "b"){			
 				riddleNumber = Random.Range(1,11);
 				if(riddleNumber==1){
 					titleText = riddle1;
@@ -616,7 +620,7 @@ public class Peddler : MonoBehaviour {
 				score -=5;
 				
 			}
-			if (GUI.Button (BButton, "9b")|| voiceAnswer== "b"){			
+			if (GUI.Button (BButton, "Splinter")|| voiceAnswer== "b"){			
 				riddleNumber = Random.Range(1,11);
 				if(riddleNumber==1){
 					titleText = riddle1;
@@ -677,7 +681,7 @@ public class Peddler : MonoBehaviour {
 				score -=5;
 				
 			}
-			if (GUI.Button (BButton, "10b")|| voiceAnswer== "b"){			
+			if (GUI.Button (BButton, "Oldage")|| voiceAnswer== "b"){			
 				riddleNumber = Random.Range(1,11);
 				if(riddleNumber==1){
 					titleText = riddle1;
@@ -740,6 +744,7 @@ public class Peddler : MonoBehaviour {
 			GUI.Box(new Rect(Screen.width/2, Screen.height/2+50,175,25), "Money earned: " +moneyT);
             if(GUI.Button(StartButton, "Map"))
             {
+                PlayerPrefs.SetInt("Money", PlayerPrefs.GetInt("Money") + money);
                 Application.LoadLevel("World Map");
             }
 			break;

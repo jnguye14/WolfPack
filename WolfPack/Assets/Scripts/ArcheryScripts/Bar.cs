@@ -37,6 +37,10 @@ public class Bar : MonoBehaviour
         }
     }
 
+    public bool isMoving = true; // flag to indicate whether or not it should move up and down
+    public float moveSpeed = 0.01f;
+    public bool isIncreasing = false; // decreases first
+
 	// Use this for initialization
 	void Start ()
 	{
@@ -60,7 +64,26 @@ public class Bar : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        setAmount(this.GetComponent<Mic>().Loudness);
+        if (isMoving)
+        {
+            if (isIncreasing)
+            {
+                increaseBar(moveSpeed);
+                if (Full)
+                {
+                    isIncreasing = !isIncreasing;
+                }
+            }
+            else
+            {
+                decreaseBar(moveSpeed);
+                if (Empty)
+                {
+                    isIncreasing = !isIncreasing;
+                }
+            }
+        }
+        //setAmount(this.GetComponent<Mic>().Loudness);
     }
 
 	void OnGUI()
