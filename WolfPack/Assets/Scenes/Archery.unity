@@ -324,32 +324,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 193e117ea3abeab45b64fef7852d1e21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TitleRect:
+  skin: {fileID: 11400000, guid: 7953503d9e83f8d469b84619849edd4e, type: 2}
+  windowRect:
     serializedVersion: 2
-    x: 20
-    y: 10
-    width: 60
-    height: 10
-  TextRect:
-    serializedVersion: 2
-    x: 30
-    y: 20
-    width: 40
+    x: 5
+    y: 5
+    width: 30
     height: 50
-  NextButton:
-    serializedVersion: 2
-    x: 55
-    y: 60
-    width: 15
-    height: 5
-  RestartButton:
-    serializedVersion: 2
-    x: 30
-    y: 60
-    width: 15
-    height: 5
-  titleFont: {fileID: 0}
-  skin: {fileID: 0}
 --- !u!114 &1259207694
 MonoBehaviour:
   m_ObjectHideFlags: 0

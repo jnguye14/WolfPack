@@ -166,18 +166,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c070e1a826829640bc74662b477f14b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skin: {fileID: 11400000, guid: 7953503d9e83f8d469b84619849edd4e, type: 2}
   box:
     serializedVersion: 2
     x: 10
-    y: 25
-    width: 75
-    height: 50
+    y: 10
+    width: 40
+    height: 80
   otherBox:
     serializedVersion: 2
     x: 50
-    y: 0
-    width: 50
-    height: 20
+    y: 10
+    width: 30
+    height: 80
   backButton:
     serializedVersion: 2
     x: 80
@@ -201,7 +202,6 @@ MonoBehaviour:
     description: A bow is required to enter the competition.
     cost: 100
     icon: {fileID: 0}
-  skin: {fileID: 11400000, guid: 45aec2ea7160f42969fbed10232fea29, type: 2}
 --- !u!1 &1400761316
 GameObject:
   m_ObjectHideFlags: 0

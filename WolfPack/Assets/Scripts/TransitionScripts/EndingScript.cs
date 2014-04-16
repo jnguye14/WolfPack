@@ -3,43 +3,26 @@ using System.Collections;
 
 public class EndingScript : MonoBehaviour
 {
-	public Rect NextButton = new Rect(0f,60f,50f,20f);
-    public Font titleFont;
+    public GUISkin skin;
+    public Rect windowRect = new Rect(0f, 0f, 100f, 100f);
     public int amount = 100; // amount of money player needs to win game (i.e. pay off his/her taxes)
 
     private string titleText = "INTRO";
-    private Font defaultFont;
+    private string text = "";
 	private int scene = 0;
     private bool hasPaid = false;
-	public GUISkin skin;
 
 	// Use this for initialization
 	void Start ()
     {
+        windowRect = adjRect(windowRect);
         hasPaid = PlayerPrefs.GetInt("Money") >= amount;
-        scene = 0;
-        if (skin != null)
-        {
-            defaultFont = skin.font;
-        }
 	}
-	
-	// Update is called once per frame
-	void Update () { }
 
     void OnGUI()
     {
         GUI.skin = skin;
-        if (titleFont != null)
-        {
-            GUI.skin.font = titleFont;
-        }//*/
 
-        GUI.contentColor = Color.black;
-        GUI.Label(new Rect(Screen.width * 0.2f, Screen.height * 0.1f, Screen.width * 0.6f, Screen.height * 0.1f), titleText);
-        GUI.skin.font = defaultFont;
-
-        string text = "";
         switch(scene)
         {
         case 0:
@@ -48,34 +31,34 @@ public class EndingScript : MonoBehaviour
             break;
         case 1:
             titleText = "DEBT COLLECTOR";
-            text = "Oh hey, it's the debt kid. Hi, debt\n" +
-                    "kid! Are you ready to fork over all\n" +
-                    "of that hard-earned money of yours?\n" +
-                    "I hope so, because I just LOVE me\n" +
-                    "some coinage.\n";
+            text = "Oh hey, it's the debt kid. Hi, debt " +
+                    "kid! Are you ready to fork over all " +
+                    "of that hard-earned money of yours? " +
+                    "I hope so, because I just LOVE me " +
+                    "some coinage.";
             break;
         case 2:
-            text = "     (...)\n";
+            text = "(...)";
             break;
         case 3:
             if (hasPaid)
             {
-                text = "Yes, yes! It's all here! His royal\n" +
-                    "highness will be most pleased that\n" +
-                    "he won't have to mow down your\n" +
-                    "cruddy little house. And maybe I'll\n" +
-                    "take a little cut for myself... Er,\n" +
-                    "nevermind! You didn't hear that.\n" +
-                    "Anyway, congrats. Now get out of\n" +
+                text = "Yes, yes! It's all here! His royal " +
+                    "highness will be most pleased that " +
+                    "he won't have to mow down your " +
+                    "cruddy little house. And maybe I'll " +
+                    "take a little cut for myself... Er, " +
+                    "nevermind! You didn't hear that. " +
+                    "Anyway, congrats. Now get out of " +
                     "here, debt kid!";
             }
             else
             {
-                text = "What?! This isn't nearly enough!\n" +
-                    "Get out of here and don't come back\n" +
-                    "unless you've got enough to pay off\n" +
-                    "your entire debt! If you do, I'll\n" +
-                    "kick your butt AND demolish your\n" +
+                text = "What?! This isn't nearly enough! " +
+                    "Get out of here and don't come back " +
+                    "unless you've got enough to pay off " +
+                    "your entire debt! If you do, I'll " +
+                    "kick your butt AND demolish your " +
                     "house. Shoo!";
                 text += "\nCurrent Amount: $"+PlayerPrefs.GetInt("Money")+".00";
                 text += "\nNeeded: $"+amount+".00";
@@ -89,9 +72,9 @@ public class EndingScript : MonoBehaviour
             else
             {
                 titleText = "CASTLE";
-                text = "You finally paid off all of your debt! Now you can live in\n" +
-                    "peace. Congratulations! You've beaten the game. But if you\n" +
-                    "want to test your skill, try playing again and beating your\n" +
+                text = "You finally paid off all of your debt! Now you can live in " +
+                    "peace. Congratulations! You've beaten the game. But if you " +
+                    "want to test your skill, try playing again and beating your " +
                     "score!";
             }
             break;
@@ -100,17 +83,53 @@ public class EndingScript : MonoBehaviour
             break;
         }
 
-        Rect tempRect = new Rect(
-                Screen.width * 0.3f,
-                Screen.height * 0.2f,
-                Screen.width * 0.4f,
-                Screen.height * 0.5f);
-        GUI.Label(tempRect, text);
+        windowRect = GUI.Window(0, windowRect, windowFunc, "");
+    }
 
-        if (GUI.Button(adjRect(NextButton), "Next"))
+    void windowFunc(int id)
+    {
+        // window buffer values
+        float leftBuffer = 50; // should be same as rightBuffer ...and bottomBuffer?
+        float topBuffer = 100;
+
+        // Title
+        float width = windowRect.width - 2 * leftBuffer;
+        float height = GUI.skin.label.CalcHeight(new GUIContent(titleText), width);
+        Rect tempRect = new Rect(leftBuffer, topBuffer, width, height);
+
+        GUI.Label(tempRect, titleText);
+
+        // Text
+        GUI.skin.box.wordWrap = true;
+        float height2 = GUI.skin.box.CalcHeight(new GUIContent(text), width); ;
+        tempRect = new Rect(leftBuffer, topBuffer + height, width, height2);
+        GUI.Box(tempRect, text);
+
+        // Prev Button
+        float btnWidth = width / 3.0f;
+        float height3 = GUI.skin.button.CalcHeight(new GUIContent("Next"), width); ;
+        tempRect = new Rect(leftBuffer, topBuffer + height + height2, btnWidth, height3);
+        if (GUI.Button(tempRect, "Prev") && scene != 0)
+        {
+            scene--;
+        }
+
+        // Skip Button
+        tempRect = new Rect(leftBuffer + btnWidth, topBuffer + height + height2, btnWidth, height3);
+        if (GUI.Button(tempRect, "Skip"))
+        {
+            Application.LoadLevel((hasPaid) ? "Credits" : "World Map");
+        }
+
+        // Next Button
+        tempRect = new Rect(leftBuffer + 2 * btnWidth, topBuffer + height + height2, btnWidth, height3);
+        if (GUI.Button(tempRect, "Next"))
         {
             scene++;
         }
+
+        // make window draggable
+        GUI.DragWindow();
     }
 
     // returns Rectangle adjusted to screen size

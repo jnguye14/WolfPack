@@ -3,103 +3,90 @@ using System.Collections;
 
 public class ArcheryIntroScript : MonoBehaviour
 {
-    public Rect TitleRect = new Rect(0f, 0f, 0f, 0f);
-    public Rect TextRect = new Rect(0f, 0f, 0f, 0f);
-    public Rect NextButton = new Rect(0f, 0f, 0f, 0f);
-    public Rect RestartButton = new Rect(0f, 0f, 0f, 0f);
-    public Font titleFont;
     public GUISkin skin;
-
-    private string titleText = "ARCHERY";
-    private Font defaultFont;
+    public Rect windowRect = new Rect(0f, 0f, 100f, 100f);
 	private int scene = 0;
+    private bool showMe = true;
 
 	// Use this for initialization
 	void Start ()
     {
-        scene = 0;
-        if (skin != null)
-        {
-            defaultFont = skin.font;
-        }
+        windowRect = adjRect(windowRect);
 	}
-	
-	// Update is called once per frame
-	void Update () { }
 
     void OnGUI()
     {
         GUI.depth = -1;
-        switch(scene)
+        GUI.skin = skin;
+        if (showMe)
         {
-        case 0: // BEFORE ARCHERY
-            ShowIntro();
-            break;
-        case 1: // WHILE ARCHERY
-            scene++; // temp
-            break;
-        case 2: // AFTER ARCHERY
-            ShowEnd();
-            break;
+            windowRect = GUI.Window(scene, windowRect, windowFunc, "");
         }
     }
 
-    void ShowIntro()
+    void windowFunc(int id)
     {
-        GUI.skin = skin;
-        if (titleFont != null)
+        // window buffer values
+        float leftBuffer = 50; // should be same as rightBuffer ...and bottomBuffer?
+        float topBuffer = 100;
+
+        // Title
+        float width = windowRect.width - 2 * leftBuffer;
+        float height = GUI.skin.label.CalcHeight(new GUIContent("ARCHERY"), width);
+        Rect tempRect = new Rect(leftBuffer, topBuffer, width, height);
+
+        GUI.Label(tempRect, (id == 0) ? "ARCHERY" : "GAME OVER");
+
+        // Text
+        string text = (id == 0) ?
+                "It seems that there's an archery competition going on. If" +
+                        " you do well in it you might get a lot of money... You decide" +
+                        " to try it out.." :
+                "Looks like you won! Good job. I'm proud of you. Now why not" +
+                        "take your winnings and make some more cash?";
+        GUI.skin.box.wordWrap = true;
+        float height2 = GUI.skin.box.CalcHeight(new GUIContent(text), width); ;
+        tempRect = new Rect(leftBuffer, topBuffer + height, width, height2);
+        GUI.Box(tempRect, text);
+
+        float btnWidth = width / 2.0f;
+        float height3 = GUI.skin.button.CalcHeight(new GUIContent("Next"), width);
+        if (id == 0) // next button only
         {
-            GUI.skin.font = titleFont;
-        }//*/
-        GUI.contentColor = Color.black;
-        GUI.Label(adjRect(TitleRect), titleText);
-        GUI.skin.font = defaultFont;
-
-        titleText = "ARCHERY"; // JIC
-        string text = "It seems that there's an archery competition going on. If"
-                + " you do well in it you might get a lot of money... You decide"
-                + " to try it out..";
-
-        GUI.Label(adjRect(TextRect), text);
-
-        if (GUI.Button(adjRect(NextButton), "Next"))
-        {
-            //this.SendMessage("ResumeTimer"); // temp
-            scene++;
+            // Next Button
+            tempRect = new Rect(leftBuffer + btnWidth, topBuffer + height + height2, btnWidth, height3);
+            if (GUI.Button(tempRect, "Next"))
+            {
+                showMe = false;
+                this.SendMessage("ResumeTimer");
+            }
         }
+        else // restart and return to map buttons
+        {
+            // Restart Button
+            tempRect = new Rect(leftBuffer, topBuffer + height + height2, btnWidth, height3);
+            if (GUI.Button(tempRect, "Play Again") && scene != 0)
+            {
+                Application.LoadLevel(Application.loadedLevel);
+            }
+
+            // Return to Map Button
+            tempRect = new Rect(leftBuffer + btnWidth, topBuffer + height + height2, btnWidth, height3);
+            if (GUI.Button(tempRect, "Back to Map"))
+            {
+                Application.LoadLevel("World Map");
+            }
+        }
+
+        // make window draggable
+        GUI.DragWindow();
     }
 
     void TimeUpEvent()
     {
-        //PlayerPrefs.SetInt("Fish", PlayerPrefs.GetInt("Fish") + PlayerPrefs.GetInt("Score"));
-        scene = 2;
-    }
-
-    void ShowEnd()
-    {
-        GUI.skin = skin;
-        if (titleFont != null)
-        {
-            GUI.skin.font = titleFont;
-        }//*/
-        GUI.contentColor = Color.black;
-        GUI.Label(adjRect(TitleRect), titleText);
-        GUI.skin.font = defaultFont;
-
-        titleText = "GAME OVER"; // JIC
-        string text = "Looks like you won! Good job. I'm proud of you. Now why not"
-                + "take your winnings and make some more cash?";
-        GUI.Label(adjRect(TextRect), text);
-
-        if (GUI.Button(adjRect(RestartButton), "Play Again"))
-        {
-            Application.LoadLevel(Application.loadedLevel);
-        }
-
-        if (GUI.Button(adjRect(NextButton), "Back to Map"))
-        {
-            Application.LoadLevel("World Map");
-        }
+        //PlayerPrefs.SetInt("Money", PlayerPrefs.GetInt("Money") + PlayerPrefs.GetInt("Score"));
+        scene = 1;
+        showMe = true;
     }
 
     // returns Rectangle adjusted to screen size

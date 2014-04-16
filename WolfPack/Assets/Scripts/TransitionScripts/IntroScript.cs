@@ -17,9 +17,6 @@ public class IntroScript : MonoBehaviour
         windowRect = adjRect(windowRect);
         LetterRect = adjRect(LetterRect);
 	}
-	
-	// Update is called once per frame
-	void Update () { }
 
     void OnGUI()
     {
