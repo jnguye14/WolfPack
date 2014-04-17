@@ -54,14 +54,13 @@ public class IntroScript : MonoBehaviour
         float leftBuffer = 50; // should be same as rightBuffer ...and bottomBuffer?
         float topBuffer = 100;
 
-        // Title
+        // Title Label
         float width = windowRect.width - 2 * leftBuffer;
         float height = GUI.skin.label.CalcHeight(new GUIContent(titleText), width);
         Rect tempRect = new Rect(leftBuffer, topBuffer, width, height);
-
         GUI.Label(tempRect, titleText);
 
-        // Text
+        // Text Box
         GUI.skin.box.wordWrap = true;
         float height2 = GUI.skin.box.CalcHeight(new GUIContent(text), width); ;
         tempRect = new Rect(leftBuffer, topBuffer + height, width, height2);

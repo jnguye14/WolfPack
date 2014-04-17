@@ -168,7 +168,36 @@ public class Peddler : MonoBehaviour
         GUI.Label(tempRect, "PEDDLER");
 
         // Text
-        string text = (id == 0) ? "Hello, let's play a game!" : "Congratulations you won!\nMoney earned: " + moneyT;
+        string text = (id == 0) ?
+                "Hello, let's play a game!" :
+                "Congratulations you won!\n" +
+                    "After answering the strange peddler's riddles, you bid him farewell. Perhaps you can make more money elsewhere.\n" +
+                    "Money earned: " + moneyT;
+        /* // Branden's script
+BEFORE PEDDLER (FIRST TIME)
+Along the way, you run across a strange peddler. He looks
+kind of sketchy.
+		PEDDLER
+	Hello, young traveler. Our meeting
+	here must be fate... Care to try
+	your hand at a game? I have several
+	riddles for you to solve. For each
+	one you solve I will bestow upon
+	you a small fortune. Care to try
+	your luck?
+Seems legit. You decide to answer the mysterious peddler's
+riddles.
+
+BEFORE PEDDLER (SECOND TIME)
+You stop by the peddler again to test your wits and make
+some more dough.
+		PEDDLER
+	Back again, I see. Very well, I
+	shall give you my riddles once
+	again, along with a small prize for
+	each one you answer correctly.
+         * //*/
+
         GUI.skin.box.wordWrap = true;
         float height2 = GUI.skin.box.CalcHeight(new GUIContent(text), width); ;
         tempRect = new Rect(leftBuffer, topBuffer + height, width, height2);

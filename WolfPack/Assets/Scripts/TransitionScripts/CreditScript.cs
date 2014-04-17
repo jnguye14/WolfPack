@@ -3,30 +3,24 @@ using System.Collections;
 
 public class CreditScript : MonoBehaviour
 {
-    public int buffer = 10;
-    public float creditSpeed = 50.0f;
-    public TextAsset credits;
-
-    public Rect RestartButton = new Rect(0f, 60f, 50f, 20f);
-
     public GUISkin skin;
-    public Font titleFont;
-    private Font defaultFont;
-    private string titleText = "CREDITS";    
+    public Rect windowRect = new Rect(0f, 0f, 100f, 100f);
 
-    private float amount; // credit offset amount
-    private int repeatNum = 0;
+    // credit variables
+    public TextAsset credits;
+    public float creditSpeed = 50.0f;
+
+    // Private Credit Scrolling variables
     private string creditText = "";
     private int creditLength = 0;
     private float startTime = 0.0f;
+    private float amount; // credit offset amount
+    private int repeatNum = 0;
 
 	// Use this for initialization
 	void Start ()
     {
-        if (skin != null)
-        {
-            defaultFont = skin.font;
-        }
+        windowRect = adjRect(windowRect);
         creditText = credits.text;
         startTime = Time.time;
     }
@@ -34,8 +28,8 @@ public class CreditScript : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        amount = (Time.time-startTime)*creditSpeed - (float)((creditLength+Screen.height)*repeatNum);
-		if(amount >= creditLength+Screen.height)
+        amount = (Time.time - startTime) * creditSpeed - (float)((creditLength + windowRect.height) * repeatNum);
+        if(amount >= creditLength + windowRect.height)
 		{
 			amount = 0;
 			repeatNum++;
@@ -45,32 +39,64 @@ public class CreditScript : MonoBehaviour
     void OnGUI()
     {
         GUI.skin = skin;
+        windowRect = GUI.Window(0, windowRect, windowFunc, "");
+    }
 
-        // Draw the "Credits" Label
-        if (titleFont != null)
-        {
-            GUI.skin.font = titleFont;
-        }
-        GUI.contentColor = Color.black;
-        GUI.Label(new Rect(Screen.width * 0.2f, Screen.height * 0.1f, Screen.width * 0.6f, Screen.height * 0.1f), titleText);
-        GUI.skin.font = defaultFont;
+    void windowFunc(int id)
+    {
+        // window buffer values
+        float leftBuffer = 50; // should be same as rightBuffer
+        float topBuffer = 100;
+        float bottomBuffer = 65;
 
-        GUILayout.BeginArea(new Rect(0, Screen.height*0.2f, Screen.width, Screen.height * 0.8f));
+        FancyTop(windowRect.width);
 
-        // Draw the Scrolling Box
-        GUI.skin.box.alignment = TextAnchor.MiddleCenter;
-        //Vector2 sizeOfBox = GUI.skin.GetStyle("Box").CalcSize(new GUIContent(creditText));
-        Vector2 sizeOfBox = GUI.skin.GetStyle("label").CalcSize(new GUIContent(creditText));
-        creditLength = (int)(sizeOfBox.y + 2.0f * buffer);
-        GUI.Box(new Rect((Screen.width - sizeOfBox.x) / 2.0f - buffer, Screen.height - amount, sizeOfBox.x + 2.0f * buffer, creditLength), creditText);
+        // Title Label
+        float width = windowRect.width - 2 * leftBuffer;
+        float height = GUI.skin.label.CalcHeight(new GUIContent("CREDITS"), width);
+        Rect tempRect = new Rect(leftBuffer, topBuffer, width, height);
+        GUI.Label(tempRect, "CREDITS");
+
+        // height for replay button, compute now so scroll area can be in the middle
+        float height3 = GUI.skin.button.CalcHeight(new GUIContent("Replay?"), width);
+
+        // Begin Area
+        float height2 = windowRect.height - topBuffer - height - height3 - bottomBuffer;
+        tempRect = new Rect(leftBuffer, topBuffer + height, width, height2);
+        GUI.Box(tempRect, "");
+        GUILayout.BeginArea(tempRect);
+
+        // Draw the Scrolling Label
+        creditLength = (int)GUI.skin.GetStyle("PlainText").CalcHeight(new GUIContent(creditText), width);
+        tempRect = new Rect(0, windowRect.height - amount, width, creditLength);
+        TextAnchor temp = GUI.skin.GetStyle("PlainText").alignment;
+        GUI.skin.GetStyle("PlainText").alignment = TextAnchor.MiddleCenter;
+        GUI.Label(tempRect, creditText, "PlainText");
+        GUI.skin.GetStyle("PlainText").alignment = temp;
 
         GUILayout.EndArea();
 
         // Replay Button
-        if (GUI.Button(adjRect(RestartButton), "Replay?"))
+        tempRect = new Rect(leftBuffer, topBuffer + height + height2, width, height3);
+        if(GUI.Button(tempRect,"Replay?"))
         {
             Application.LoadLevel("Title");
         }
+
+        // make window draggable
+        GUI.DragWindow();
+    }
+
+    void FancyTop(float topX)
+    {
+        float leafOffset = (topX / 2) - 64;
+        float frameOffset = (topX / 2) - 27;
+        float skullOffset = (topX / 2) - 20;
+
+        GUI.Label(new Rect(leafOffset + 35, 35, 0, 0), "", "RibbonBlue"); // added
+        GUI.Label(new Rect(leafOffset, 18, 0, 0), "", "GoldLeaf");
+        GUI.Label(new Rect(frameOffset, 3, 0, 0), "", "IconFrame");
+        //GUI.Label(new Rect(skullOffset, 12, 0, 0), "", "Skull");
     }
 
     // returns Rectangle adjusted to screen size

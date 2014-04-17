@@ -17,43 +17,9 @@ public class Market : MonoBehaviour
 
     /*
     BEFORE MARKET
-
 You decide to head to the town's marketplace. There are
 plenty of shops there that will buy fish for a decent amount
 of money.
-
-BEFORE PEDDLER (FIRST TIME)
-
-Along the way, you run across a strange peddler. He looks
-kind of sketchy.
-
-		PEDDLER
-	Hello, young traveler. Our meeting
-	here must be fate... Care to try
-	your hand at a game? I have several
-	riddles for you to solve. For each
-	one you solve I will bestow upon
-	you a small fortune. Care to try
-	your luck?
-
-Seems legit. You decide to answer the mysterious peddler's
-riddles.
-
-BEFORE PEDDLER (SECOND TIME)
-
-You stop by the peddler again to test your wits and make
-some more dough.
-
-		PEDDLER
-	Back again, I see. Very well, I
-	shall give you my riddles once
-	again, along with a small prize for
-	each one you answer correctly.
-
-AFTER PEDDLER
-
-After answering the strange peddler's riddles, you bid him
-farewell. Perhaps you can make more money elsewhere.
     //*/
 
     void OnGUI()
@@ -83,7 +49,7 @@ farewell. Perhaps you can make more money elsewhere.
     void marketWindow(int id)
     {
         // window buffer values
-        float leftBuffer = 50; // should be same as rightBuffer ...and bottomBuffer?
+        float leftBuffer = 50; // should be same as rightBuffer
         float topBuffer = 100;
         float bottomBuffer = 65;
 
