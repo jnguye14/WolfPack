@@ -86,8 +86,8 @@ GameObject:
   - 92: {fileID: 122421110}
   - 124: {fileID: 122421109}
   - 81: {fileID: 122421108}
-  - 114: {fileID: 122421113}
   - 114: {fileID: 122421114}
+  - 114: {fileID: 122421115}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -156,60 +156,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
---- !u!114 &122421113
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 122421107}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e90738759ff39e46b585bbbeb4da00f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  scene: 0
-  StartButton:
-    serializedVersion: 2
-    x: 50
-    y: 150
-    width: 100
-    height: 20
-  AButton:
-    serializedVersion: 2
-    x: 100
-    y: 150
-    width: 100
-    height: 50
-  BButton:
-    serializedVersion: 2
-    x: 100
-    y: 210
-    width: 100
-    height: 50
-  CButton:
-    serializedVersion: 2
-    x: 250
-    y: 150
-    width: 100
-    height: 50
-  DButton:
-    serializedVersion: 2
-    x: 250
-    y: 210
-    width: 100
-    height: 50
-  Title: Peddler  Mini game
-  riddleNumber: 0
-  GameTitle: Peddler Mini-Game
-  titleFont: {fileID: 12800000, guid: 0d4a67a4399996d47bdeddbcf8f9699e, type: 3}
-  score: 0
-  scoreT: 
-  correct: 0
-  money: 0
-  moneyT: 
-  voiceAnswer: 
-  skin: {fileID: 11400000, guid: 45aec2ea7160f42969fbed10232fea29, type: 2}
-  ScoreText: {fileID: 0}
 --- !u!114 &122421114
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -222,56 +168,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sendMessegeTo: {fileID: 122421107}
---- !u!1 &1215326431
-GameObject:
+--- !u!114 &122421115
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1215326433}
-  - 132: {fileID: 1215326432}
-  m_Layer: 0
-  m_Name: GUI Text
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!132 &1215326432
-GUIText:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1215326431}
+  m_GameObject: {fileID: 122421107}
   m_Enabled: 1
-  serializedVersion: 3
-  m_Text: Gui Text
-  m_Anchor: 0
-  m_Alignment: 0
-  m_PixelOffset: {x: 0, y: 0}
-  m_LineSpacing: 1
-  m_TabSize: 4
-  m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-  m_Material: {fileID: 0}
-  m_FontSize: 0
-  m_FontStyle: 0
-  m_Color:
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a87cc3b85566a884ba80bc65e152f71a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skin: {fileID: 11400000, guid: 7953503d9e83f8d469b84619849edd4e, type: 2}
+  peddlerWindow:
     serializedVersion: 2
-    rgba: 4294967295
-  m_PixelCorrect: 1
-  m_RichText: 1
---- !u!4 &1215326433
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1215326431}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: .5, y: .5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
+    x: 0
+    y: 0
+    width: 100
+    height: 100
 --- !u!1 &1442920747
 GameObject:
   m_ObjectHideFlags: 0
