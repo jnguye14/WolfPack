@@ -54,12 +54,7 @@
      <Compile Include="Assets\Scripts\StretchToScreen.js" />
      <None Include="Assets\Scripts\TransitionScripts\credits.txt" />
      <None Include="Assets\Necromancer GUI\Kingthings.txt" />
-     <None Include="Assets\Standard Assets\Water (Basic)\Sources\Shaders\FX-Water Simple.shader" />
      <None Include="Assets\Necromancer GUI\Readme.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
-      <Project>{B10DB169-7D12-A807-548E-C6E3CC8BC56F}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

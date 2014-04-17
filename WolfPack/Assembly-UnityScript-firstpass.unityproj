@@ -5,11 +5,11 @@
 	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
 	<ProductVersion>10.0.20506</ProductVersion>
 	<SchemaVersion>2.0</SchemaVersion>
-	<ProjectGuid>{2BD122C8-C318-36BF-CEA0-D8B02674DC20}</ProjectGuid>
+	<ProjectGuid>{CF8CE594-D6F7-65B6-02A3-49537001B134}</ProjectGuid>
 	<OutputType>Library</OutputType>
 	<AppDesignerFolder>Properties</AppDesignerFolder>
 	<RootNamespace></RootNamespace>
-	<AssemblyName>Assembly-UnityScript</AssemblyName>
+	<AssemblyName>Assembly-UnityScript-firstpass</AssemblyName>
 	<TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
 	<FileAlignment>512</FileAlignment>
 	<BaseDirectory>Assets</BaseDirectory>
@@ -46,14 +46,12 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Necromancer GUI\GUITestScript.js" />
-     <Compile Include="Assets\Scripts\FishScripts\CountDown.js" />
-     <Compile Include="Assets\Scripts\FishScripts\Score.js" />
-     <Compile Include="Assets\Scripts\SpriteChange.js" />
-     <Compile Include="Assets\Scripts\SpriteChange1.js" />
-     <Compile Include="Assets\Scripts\StretchToScreen.js" />
+     <Compile Include="Assets\Standard Assets\Particles\Legacy Particles\TimedObjectDestructor.js" />
+     <None Include="Assets\Editor\Readme-ResourceChecker.txt" />
+     <None Include="Assets\Standard Assets\Particles\Sources\Shaders\Particle Alpha Blend (Queue +100).shader" />
      <None Include="Assets\Scripts\TransitionScripts\credits.txt" />
      <None Include="Assets\Necromancer GUI\Kingthings.txt" />
+     <None Include="Assets\Standard Assets\Water (Basic)\Sources\Shaders\FX-Water Simple.shader" />
      <None Include="Assets\Necromancer GUI\Readme.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

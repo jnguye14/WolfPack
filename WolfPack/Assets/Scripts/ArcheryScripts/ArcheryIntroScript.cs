@@ -44,6 +44,25 @@ public class ArcheryIntroScript : MonoBehaviour
                         " to try it out.." :
                 "Looks like you won! Good job. I'm proud of you. Now why not" +
                         "take your winnings and make some more cash?";
+/*
+ARCHERY (NO ARROWS)
+    GUY IN CHARGE OF COMPETITION
+Sorry kid, but you've gotta bring
+your own arrows for this contest.
+What, do you think arrows just grow
+on trees? We can't afford to buy
+all of you contestants your own
+arrows. Not in THIS economy! Come
+back with some of them and then
+we'll talk.      
+ARCHERY (ARROWS)
+    GUY IN CHARGE OF COMPETITION
+Step right up, kid, and try your
+hand at the archery range! You can
+win money here. Lots of money! So
+what are you waiting for? Let's do
+this!
+//*/
         GUI.skin.box.wordWrap = true;
         float height2 = GUI.skin.box.CalcHeight(new GUIContent(text), width); ;
         tempRect = new Rect(leftBuffer, topBuffer + height, width, height2);

@@ -6,6 +6,7 @@ public class Peddler : MonoBehaviour
     // GUI vars
     public GUISkin skin;
     public Rect peddlerWindow = new Rect(0f, 0f, 100f, 100f);
+    private bool hasMet = false;
     private int scene = 0;
     // 0 = start
     // 1 = game
@@ -90,6 +91,7 @@ public class Peddler : MonoBehaviour
 
     void Start()
     {
+        hasMet = PlayerPrefs.HasKey("MetPeddler");
         peddlerWindow = adjRect(peddlerWindow);
         Riddles = new Riddle[10];
         for (int i = 0; i < 10; i++)
@@ -168,35 +170,42 @@ public class Peddler : MonoBehaviour
         GUI.Label(tempRect, "PEDDLER");
 
         // Text
-        string text = (id == 0) ?
-                "Hello, let's play a game!" :
-                "Congratulations you won!\n" +
-                    "After answering the strange peddler's riddles, you bid him farewell. Perhaps you can make more money elsewhere.\n" +
-                    "Money earned: " + moneyT;
-        /* // Branden's script
-BEFORE PEDDLER (FIRST TIME)
-Along the way, you run across a strange peddler. He looks
-kind of sketchy.
-		PEDDLER
-	Hello, young traveler. Our meeting
-	here must be fate... Care to try
-	your hand at a game? I have several
-	riddles for you to solve. For each
-	one you solve I will bestow upon
-	you a small fortune. Care to try
-	your luck?
-Seems legit. You decide to answer the mysterious peddler's
-riddles.
-
-BEFORE PEDDLER (SECOND TIME)
-You stop by the peddler again to test your wits and make
-some more dough.
-		PEDDLER
-	Back again, I see. Very well, I
-	shall give you my riddles once
-	again, along with a small prize for
-	each one you answer correctly.
-         * //*/
+        string text = "";
+        if (id == 0)
+        {
+            if (hasMet) // second or later time meeting peddler
+            {
+                text = "You stop by the peddler again to test your wits and make " +
+                        "some more dough.\n\n" +
+                            "The Peddler says: \"" +
+	                        "Back again, I see. Very well, I " +
+	                        "shall give you my riddles once " +
+	                        "again, along with a small prize for " +
+	                        "each one you answer correctly.\"";
+            }
+            else // first time meeting peddler
+            {
+                PlayerPrefs.SetInt("MetPeddler", 1);
+                text = "Along the way, you run across a strange peddler. He looks " +
+                        "kind of sketchy.\n\n" +
+	                        "The Peddler says: \"" +
+	                        "Hello, young traveler. Our meeting " +
+	                        "here must be fate... Care to try " +
+	                        "your hand at a game? I have several " +
+	                        "riddles for you to solve. For each " +
+	                        "one you solve I will bestow upon " +
+	                        "you a small fortune. Care to try " +
+	                        "your luck?\"\n\n" +
+                        "Seems legit. You decide to answer the mysterious peddler's " +
+                        "riddles.";
+            }
+        }
+        else // id == 1, i.e. ending
+        {
+            text = "Congratulations you won!\n" +
+                "After answering the strange peddler's riddles, you bid him farewell. Perhaps you can make more money elsewhere.\n" +
+                "Money earned: $" + moneyT + ".00";
+        }
 
         GUI.skin.box.wordWrap = true;
         float height2 = GUI.skin.box.CalcHeight(new GUIContent(text), width); ;

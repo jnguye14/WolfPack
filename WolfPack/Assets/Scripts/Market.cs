@@ -20,6 +20,10 @@ public class Market : MonoBehaviour
 You decide to head to the town's marketplace. There are
 plenty of shops there that will buy fish for a decent amount
 of money.
+    BEFORE COOKING
+You decide to try some cooking. Cooked fish will no doubt
+sell for more at the market, so Put on that chef's hat and
+make some food!
     //*/
 
     void OnGUI()
