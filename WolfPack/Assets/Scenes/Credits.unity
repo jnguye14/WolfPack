@@ -201,17 +201,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f55c0be2576d55e488d2983fdaf78087, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buffer: 10
-  creditSpeed: 150
-  credits: {fileID: 4900000, guid: 599a09c334da7f649a88da8d9465de40, type: 3}
-  RestartButton:
+  skin: {fileID: 11400000, guid: 7953503d9e83f8d469b84619849edd4e, type: 2}
+  windowRect:
     serializedVersion: 2
-    x: 80
-    y: 80
-    width: 10
-    height: 5
-  skin: {fileID: 11400000, guid: 45aec2ea7160f42969fbed10232fea29, type: 2}
-  titleFont: {fileID: 12800000, guid: 0d4a67a4399996d47bdeddbcf8f9699e, type: 3}
+    x: 25
+    y: 0
+    width: 50
+    height: 100
+  credits: {fileID: 4900000, guid: 599a09c334da7f649a88da8d9465de40, type: 3}
+  creditSpeed: 100
 --- !u!81 &1188088949
 AudioListener:
   m_ObjectHideFlags: 0
