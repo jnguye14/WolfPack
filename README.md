@@ -19,3 +19,7 @@ Resources:
 Unity Game Engine: http://unity3d.com/
 
 Carnegie Mellon University Sphinx Speech Recognition Toolkit: http://cmusphinx.sourceforge.net/
+
+Necromancer GUI: jc_wentzel@ironboundstudios.com
+<br/>~Art/programming: Jason Wentzel
+<br/>~Fonts: Kevin King
