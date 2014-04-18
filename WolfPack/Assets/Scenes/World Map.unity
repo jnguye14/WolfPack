@@ -838,7 +838,7 @@ MonoBehaviour:
   Key1: 
   Key2: 
   ReqKeysName: []
-  Coordinate: {x: 10, y: 50}
+  Coordinate: {x: 10, y: 40}
 --- !u!120 &1489450905
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -1072,7 +1072,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3e1bb41d91259747b8fae26a5e03f2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Level: 
+  Level: Campfire
   Key1: 
   Key2: 
   ReqKeysName: []
@@ -1180,7 +1180,7 @@ MonoBehaviour:
   Key1: 
   Key2: 
   ReqKeysName: []
-  Coordinate: {x: 30, y: 50}
+  Coordinate: {x: 30, y: 40}
 --- !u!120 &1950831680
 LineRenderer:
   m_ObjectHideFlags: 0

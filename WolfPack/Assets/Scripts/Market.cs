@@ -20,10 +20,6 @@ public class Market : MonoBehaviour
 You decide to head to the town's marketplace. There are
 plenty of shops there that will buy fish for a decent amount
 of money.
-    BEFORE COOKING
-You decide to try some cooking. Cooked fish will no doubt
-sell for more at the market, so Put on that chef's hat and
-make some food!
     //*/
 
     void OnGUI()
@@ -100,15 +96,15 @@ make some food!
             GUI.Box(tempRect, text);
 
             // icon TOOD figure out best way to implement this, if at all
-            //if (i.icon != null)
-            //{
-            //    tempRect = new Rect(
-            //        leftBuffer,
-            //        offset,
-            //        width,
-            //        height2);
-            //    GUI.DrawTexture(tempRect, i.icon);
-            //}
+            if (id != 0 && i.icon != null)
+            {
+                tempRect = new Rect(
+                    leftBuffer + width*0.5f,
+                    offset,
+                    width * 0.25f,
+                    height2);
+                GUI.DrawTexture(tempRect, i.icon);
+            }
 
             // button
             tempRect = new Rect(

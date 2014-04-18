@@ -66,13 +66,17 @@ public class IntroScript : MonoBehaviour
         tempRect = new Rect(leftBuffer, topBuffer + height, width, height2);
         GUI.Box(tempRect, text);
 
-        // Prev Button
         float btnWidth = width / 3.0f;
         float height3 = GUI.skin.button.CalcHeight(new GUIContent("Next"), width); ;
-        tempRect = new Rect(leftBuffer, topBuffer + height + height2, btnWidth, height3);
-        if(GUI.Button(tempRect, "Prev") && scene != 0)
+
+        if (scene != 0)
         {
-            scene--;
+            // Prev Button
+            tempRect = new Rect(leftBuffer, topBuffer + height + height2, btnWidth, height3);
+            if (GUI.Button(tempRect, "Prev"))
+            {
+                scene--;
+            }
         }
 
         // Skip Button

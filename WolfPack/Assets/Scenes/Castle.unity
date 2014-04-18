@@ -353,7 +353,7 @@ MonoBehaviour:
     x: 5
     y: 5
     width: 30
-    height: 55
+    height: 65
   amount: 100
 --- !u!81 &1188088949
 AudioListener:

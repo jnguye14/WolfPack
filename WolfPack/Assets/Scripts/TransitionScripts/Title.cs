@@ -5,14 +5,18 @@ public class Title : MonoBehaviour
 {
     #region Variables
     public GUISkin skin;
+    private int scene = 0;
+    // 0 = title
+    // 1 = character select
+    //private bool isOn = false; // for GUI.Toggle if wanted
 
     // title vars
 	public Rect PlayButton = new Rect(0f,0f,50f,20f);
 	public Rect InstructButton = new Rect(0f,60f,50f,20f);
 
     // instruction vars
-	public Rect BackButton = new Rect(0f,60f,50f,20f);
-    public Rect windowRect = new Rect(0f, 0f, 100f, 100f); // for instructions
+    private bool showInstruct = false;
+    public Rect windowRect = new Rect(0f, 0f, 100f, 100f);
 
     // character select vars
     public GUITexture background;
@@ -21,13 +25,6 @@ public class Title : MonoBehaviour
     public Texture2D FemaleIcon;
     public Rect maleWinRect = new Rect(0f,0f,100f,100f);
     public Rect femaleWinRect = new Rect(0f, 0f, 100f, 100f);
-
-    //bool isOn = false; // for GUI.Toggle if wanted
-
-    private int scene = 0;
-    // 0 = title
-    // 1 = instructions
-    // 2 = character select
     #endregion
 
     void Start ()
@@ -47,11 +44,12 @@ public class Title : MonoBehaviour
 		{
 		case 0: // Title
             DrawTitleScreen();
+            if (showInstruct)
+            {
+                windowRect = GUI.Window(0, windowRect, InstructWindow, "");
+            }
 			break;
-		case 1: // Instructions
-            DrawInstruct();
-    		break;
-		case 2: // Character Select
+		case 1: // Character Select
             DrawCharSelect();
     		break;
 		}
@@ -65,11 +63,11 @@ public class Title : MonoBehaviour
         if (GUI.Button(adjRect(PlayButton), "Play"))
         {
             background.texture = charSelectScreen;
-            scene = 2;
+            scene = 1;
         }
         if (GUI.Button(adjRect(InstructButton), "Instructions"))
         {
-            scene = 1;
+            showInstruct = !showInstruct;
         }
 
         // disclaimer text
@@ -83,15 +81,6 @@ public class Title : MonoBehaviour
         GUI.skin.box.normal.textColor = Color.red;
         GUI.Box(tempRect, disclaimerText);
         GUI.skin.box.normal.textColor = c;
-    }
-
-    void DrawInstruct()
-    {
-        if (GUI.Button(adjRect(BackButton), "Back"))
-        {
-            scene = 0;
-        }
-        windowRect = GUI.Window(0, windowRect, InstructWindow, "");
     }
 
     void DrawCharSelect()
@@ -126,6 +115,13 @@ public class Title : MonoBehaviour
         float height2 = GUI.skin.box.CalcHeight(new GUIContent(instructText), width);
         GUI.Box(new Rect(leftBuffer, topBuffer+height, width, height2), instructText);
 
+        height += height2;
+        height2 = GUI.skin.button.CalcHeight(new GUIContent("Close"), width);
+        if (GUI.Button(new Rect(leftBuffer, topBuffer+height,width,height2), "Close"))
+        {
+            showInstruct = !showInstruct;
+        }
+
         // make window draggable
         GUI.DragWindow();
     }
@@ -150,6 +146,7 @@ public class Title : MonoBehaviour
 
         // Player Icon
         tempRect = new Rect(leftBuffer, topBuffer + height, width, width);
+        GUI.skin.box.alignment = TextAnchor.MiddleCenter;
         GUI.Box(tempRect, (id == 0) ? MaleIcon : FemaleIcon);
 
         // left click on icon instead of button

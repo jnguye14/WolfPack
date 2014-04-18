@@ -2,7 +2,9 @@ fileFormatVersion: 2
 guid: 552c32b8c125296409a08d75b33aa086
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - boySprite: {fileID: 21300000, guid: e9de5d0ccbb63364bad7dcf33bcac977, type: 3}
+  - girlSprite: {fileID: 21300000, guid: c0cf33dbb8221a54495d05cc7eed876d, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
