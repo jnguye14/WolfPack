@@ -10,6 +10,11 @@ public class SpeechRecognizerThread extends Thread
     {
     	recognizer = rec;
     }
+	
+	public void resetText()
+	{
+		resultText = "";
+	}
 
 	public String getResultText()
 	{

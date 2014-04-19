@@ -60,6 +60,8 @@ public class FishIntroScript : MonoBehaviour
             {
                 showMe = false;
                 this.SendMessage("ResumeTimer");
+                this.SendMessage("StartRecording");
+                GameObject.Find("Net").GetComponent<Net>().isPlaying = true;
             }
         }
         else // restart and return to map buttons
@@ -85,6 +87,10 @@ public class FishIntroScript : MonoBehaviour
 
     void TimeUpEvent()
     {
+        GameObject.Find("Net").GetComponent<Net>().isPlaying = false;
+        this.SendMessage("StopRecording");
+        this.SendMessage("SaveRecording", "Fish");
+
         int multiplier = 5;
         PlayerPrefs.SetInt("Fish", PlayerPrefs.GetInt("Fish") + PlayerPrefs.GetInt("Score")); // TODO: change to numFish
         PlayerPrefs.SetInt("Score", PlayerPrefs.GetInt("Score") + multiplier * PlayerPrefs.GetInt("Score")); // TODO: change to numFish

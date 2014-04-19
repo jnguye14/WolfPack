@@ -27,6 +27,7 @@ public class ServerTest {
             System.exit(1);
         }
 		
+        
         SpeechRecognizerThread t = new SpeechRecognizerThread(recognizer);
         t.start();
         
@@ -47,11 +48,15 @@ public class ServerTest {
             	// identify input
             	if(inputLine.equalsIgnoreCase("GetInput"))
             	{
-            		t.getResultText();
+            		//t.getResultText();
             		String oString = t.getResultText();//"Hello World";
             		System.out.println("Sending message back: " + oString);
             		out.println(oString);
             		out.flush();
+            	}
+            	else if(inputLine.equalsIgnoreCase("Reset"))
+            	{
+            		t.resetText();
             	}
             	else
             	{

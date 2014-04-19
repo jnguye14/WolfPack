@@ -5,7 +5,7 @@ public class Fish : MonoBehaviour {
 	public GameObject hook;
     private Vector3 target;
     public string colorName;
-	private bool isHooked = false;
+	public bool isHooked = false;
 
 	// Use this for initialization
 	void Start ()

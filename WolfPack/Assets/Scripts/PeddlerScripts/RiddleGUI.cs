@@ -1,20 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Peddler : MonoBehaviour
+public class RiddleGUI : MonoBehaviour
 {
     // GUI vars
     public GUISkin skin;
+    public bool isShowing = false;
     public Rect peddlerWindow = new Rect(0f, 0f, 100f, 100f);
-    private bool hasMet = false;
-    private int scene = 0;
-    // 0 = start
-    // 1 = game
-    // 2 = end
 
     // Riddle vars
     private Riddle[] Riddles;
-    private int riddleNumber;
+    public int riddleNumber;
     public class Riddle
     {
         public string text;
@@ -60,10 +56,10 @@ public class Peddler : MonoBehaviour
     };
     private int[] correctAnswers = new int[]
     {
-        1, // none
+        0, // none
         1, // Nothing
         0, // E
-        1, // Balance
+        2, // Balance
         1, // Mary
         1, // Footsteps
         1, // Echo
@@ -73,50 +69,35 @@ public class Peddler : MonoBehaviour
     };
 
     // other game vars
-    private string voiceAnswer;
-    private int correct = 0; // the number of riddles answered correctly
-    private int score = 0;
+    public bool isEasy = true;
+    public int correct = 0; // the number of riddles answered correctly
+    public int score = 0;
     private string scoreT
     {
         get { return score.ToString(); }
     }
-    private int money
-    {
-        get { return score * 3; }
-    }
-    private string moneyT
-    {
-        get { return money.ToString(); }
-    }
 
     void Start()
     {
-        hasMet = PlayerPrefs.HasKey("MetPeddler");
         peddlerWindow = adjRect(peddlerWindow);
         Riddles = new Riddle[10];
         for (int i = 0; i < 10; i++)
         {
             Riddles[i] = new Riddle(riddles[i], answers[i], correctAnswers[i]);
         }
+        riddleNumber = Random.Range(0, 5);
     }
 
     void OnGUI()
     {
         GUI.skin = skin;
-        switch (scene)
+        if (isShowing)
         {
-            case 0: // Before Game
-                peddlerWindow = GUI.Window(0, peddlerWindow, windowFunc, "");
-                break;
-            case 1: // During Game
-                peddlerWindow = GUI.Window(0, peddlerWindow, riddleWinFunc, "");
-                break;
-            default:
-                peddlerWindow = GUI.Window(1, peddlerWindow, windowFunc, "");
-                break;
+            peddlerWindow = GUI.Window(0, peddlerWindow, riddleWinFunc, "");
         }
     }
 
+    // actual window displaying riddles
     void riddleWinFunc(int id)
     {
         // window buffer values
@@ -125,15 +106,19 @@ public class Peddler : MonoBehaviour
 
         // Title Label
         float width = peddlerWindow.width - 2 * leftBuffer;
-        float height = GUI.skin.label.CalcHeight(new GUIContent("PEDDLER"), width);
+        float height = GUI.skin.label.CalcHeight(new GUIContent("RIDDLE"), width);
         Rect tempRect = new Rect(leftBuffer, topBuffer, width, height);
-        GUI.Label(tempRect, "PEDDLER");
+        GUI.Label(tempRect, "RIDDLE #" + riddleNumber);
 
         // Riddle Text Box
         GUI.skin.box.wordWrap = true;
         float height2 = GUI.skin.box.CalcHeight(new GUIContent(Riddles[riddleNumber].text), width);
         tempRect = new Rect(leftBuffer, topBuffer + height, width, height2);
         GUI.Box(tempRect, Riddles[riddleNumber].text);
+
+        float height3 = GUI.skin.box.CalcHeight(new GUIContent("Score"), width);
+        tempRect = new Rect(leftBuffer, topBuffer + height + height2, width, height3);
+        GUI.Label(tempRect, "Score: " + scoreT);
 
         // Button answers
         for (int i = 0; i < 4; i++)
@@ -146,88 +131,21 @@ public class Peddler : MonoBehaviour
                     offset,
                     width,
                     height2);
-            if(GUI.Button(tempRect, Riddles[riddleNumber].answer[i]))
+            Color temp = GUI.backgroundColor;
+            Color c = GUI.backgroundColor;
+            switch (i)
             {
-                AnswerRiddle(i);
+                case 0: c = Color.blue; break;
+                case 1: c = Color.red; break;
+                case 2: c = Color.green; break;
+                case 3: c = Color.yellow; break;
             }
-        }
-
-        // make window draggable
-        GUI.DragWindow();
-    }
-
-    void windowFunc(int id)
-    {
-        // window buffer values
-        float leftBuffer = 50; // should be same as rightBuffer ...and bottomBuffer?
-        float topBuffer = 100;
-
-        // Title
-        float width = peddlerWindow.width - 2 * leftBuffer;
-        float height = GUI.skin.label.CalcHeight(new GUIContent("PEDDLER"), width);
-        Rect tempRect = new Rect(leftBuffer, topBuffer, width, height);
-
-        GUI.Label(tempRect, "PEDDLER");
-
-        // Text
-        string text = "";
-        if (id == 0)
-        {
-            if (hasMet) // second or later time meeting peddler
+            GUI.backgroundColor = c;
+            if (GUI.Button(tempRect, Riddles[riddleNumber].answer[i]))
             {
-                text = "You stop by the peddler again to test your wits and make " +
-                        "some more dough.\n\n" +
-                            "The Peddler says: \"" +
-	                        "Back again, I see. Very well, I " +
-	                        "shall give you my riddles once " +
-	                        "again, along with a small prize for " +
-	                        "each one you answer correctly.\"";
+                AnswerRiddle(i); // TODO: Will be disabled for SR
             }
-            else // first time meeting peddler
-            {
-                PlayerPrefs.SetInt("MetPeddler", 1);
-                text = "Along the way, you run across a strange peddler. He looks " +
-                        "kind of sketchy.\n\n" +
-	                        "The Peddler says: \"" +
-	                        "Hello, young traveler. Our meeting " +
-	                        "here must be fate... Care to try " +
-	                        "your hand at a game? I have several " +
-	                        "riddles for you to solve. For each " +
-	                        "one you solve I will bestow upon " +
-	                        "you a small fortune. Care to try " +
-	                        "your luck?\"\n\n" +
-                        "Seems legit. You decide to answer the mysterious peddler's " +
-                        "riddles.";
-            }
-        }
-        else // id == 1, i.e. ending
-        {
-            text = "Congratulations you won!\n" +
-                "After answering the strange peddler's riddles, you bid him farewell. Perhaps you can make more money elsewhere.\n" +
-                "Money earned: $" + moneyT + ".00";
-        }
-
-        GUI.skin.box.wordWrap = true;
-        float height2 = GUI.skin.box.CalcHeight(new GUIContent(text), width); ;
-        tempRect = new Rect(leftBuffer, topBuffer + height, width, height2);
-        GUI.Box(tempRect, text);
-
-        // Start Button
-        float btnWidth = width;
-        float height3 = GUI.skin.button.CalcHeight(new GUIContent("Start"), width);
-        tempRect = new Rect(leftBuffer, topBuffer + height + height2, btnWidth, height3);
-        if (GUI.Button(tempRect, (id == 0) ? "Start" : "Map"))
-        {
-            if(id == 0)
-            {
-                riddleNumber = Random.Range(0, 10);
-                scene++;
-            }
-            else
-            {
-                PlayerPrefs.SetInt("Money", PlayerPrefs.GetInt("Money") + money);
-                Application.LoadLevel("World Map");
-            }
+            GUI.backgroundColor = temp;
         }
 
         // make window draggable
@@ -236,40 +154,58 @@ public class Peddler : MonoBehaviour
 
     void ParseData(string data)
     {
-        if (data == "choose answer a")
+        if (data == "choose answer blue")
         {
-            AnswerRiddle(0);//voiceAnswer = "a";
+            AnswerRiddle(0);
         }
-        if (data == "choose answer b")
+        if (data == "choose answer red")
         {
-            AnswerRiddle(1);//voiceAnswer = "b";
+            AnswerRiddle(1);
         }
-        if (data == "choose answer c")
+        if (data == "choose answer green")
         {
-            AnswerRiddle(2);//voiceAnswer = "c";
+            AnswerRiddle(2);
         }
-        if (data == "choose answer d")
+        if (data == "choose answer yellow")
         {
-            AnswerRiddle(3);//voiceAnswer = "d";
+            AnswerRiddle(3);
         }
     }
 
     void AnswerRiddle(int a)
     {
+        if (!isShowing) // same as canAnswer, if it's not showing, you can't answer
+        {
+            return;
+        }
+
+        //this.GetComponent<script>().isGettingData = false;
         if (a == Riddles[riddleNumber].correctNum)
         {
             score += 10;
             correct++;
-            if (correct == 4)
+            if (correct == 2)
             {
-                scene++;
+                isShowing = false;
             }
-            riddleNumber = Random.Range(0, 10);
+            int oldNum = riddleNumber;
+            while (riddleNumber == oldNum) // so it doesn't come up with the same riddle twice
+            {
+                if (isEasy)
+                {
+                    riddleNumber = Random.Range(0, 5);
+                }
+                else
+                {
+                    riddleNumber = Random.Range(5, 10);
+                }
+            }
         }
         else
         {
             score -= 5;
         }
+        //this.GetComponent<script>().isGettingData = true;
     }
 
     // returns Rectangle adjusted to screen size

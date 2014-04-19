@@ -73,7 +73,7 @@ public class Title : MonoBehaviour
         // disclaimer text
         GUI.skin.box.fontSize = 20;
         GUI.skin.box.wordWrap = true;
-        string disclaimerText = "Upon pressing play, you agree to have your voice recorded for the purposes of this application.";
+        string disclaimerText = "Upon pressing play, you agree to have your voice recorded for the purposes of this application.\nNot for the color blind (aka Jesse).";
         float width = Screen.width / 2.0f;
         float height = GUI.skin.box.CalcHeight(new GUIContent(disclaimerText), width);
         Rect tempRect = new Rect(Screen.width/2.0f - width/2.0f, Screen.height * 0.8f, width, height);

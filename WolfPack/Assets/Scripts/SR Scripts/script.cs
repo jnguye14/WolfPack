@@ -14,9 +14,9 @@ public class script: MonoBehaviour
 	private const int listenPort = 29129;
 	Socket client;
 	IPEndPoint remoteEP;
-	//Color currentColor = Color.clear;
 	private string response = "";
     private string prevResponse = "";
+    public bool isGettingData = true;
 
 	void Start()
 	{
@@ -41,7 +41,7 @@ public class script: MonoBehaviour
 
 	void Update ()
 	{
-        if (sendMessegeTo != null && prevResponse != response)
+        if (sendMessegeTo != null)
         {
             sendMessegeTo.SendMessage("ParseData", response);
             prevResponse = response;
@@ -53,59 +53,75 @@ public class script: MonoBehaviour
 			Debug.Log ("Clicked"); // Just so we could make sure Unity is actually running
 		}//*/
 
-		//if (Input.GetButtonDown("Jump")) // spacebar
-		{
-			//Debug.Log ("Transmitting...");
-			if(client.Connected)
-			{
-				// string converted to byte[] to send
-				byte[] ba = Encoding.ASCII.GetBytes("GetInput\n");
+        
 
-				// send the byte[]
-				client.BeginSend(ba, 0, ba.Length,
-				                 SocketFlags.None,
-				                 new AsyncCallback(myWriteCallBack),
-				                 client);
-			}
-			else
-			{
-				Debug.Log ("Not Connected; Unable to Transmit.");
-			}
+        if (isGettingData)
+        {
+            transmitData("GetInput\n");
+            receiveData();
+        }
 
-
-			//Debug.Log ("Receiving Data...");
-			if(client.Connected)
-			{
-				// stateobject holds information for callback
-				StateObject state = new StateObject();
-				state.workSocket = client;
-
-				// receive the information (see callback)
-				client.BeginReceive(state.buffer, 0, StateObject.BufferSize,
-				                    0,
-				                    new AsyncCallback(myReadCallBack),
-				                    state);
-			}
-			else
-			{
-				Debug.Log ("Not connected; Unable to Receive Data.");
-			}
-		}
+        if (prevResponse == response)
+        {
+            transmitData("Reset\n");
+        }
 	}
+
+    void transmitData(string t)
+    {
+        //Debug.Log ("Transmitting...");
+        if (client.Connected)
+        {
+            // string converted to byte[] to send
+            byte[] ba = Encoding.ASCII.GetBytes(t);
+
+            // send the byte[]
+            client.BeginSend(ba, 0, ba.Length,
+                                SocketFlags.None,
+                                new AsyncCallback(myWriteCallBack),
+                                client);
+        }
+        else
+        {
+            Debug.Log("Not Connected; Unable to Transmit.");
+        }
+    }
+
+    void receiveData()
+    {
+		//Debug.Log ("Receiving Data...");
+		if(client.Connected && isGettingData)
+		{
+			// stateobject holds information for callback
+			StateObject state = new StateObject();
+			state.workSocket = client;
+
+			// receive the information (see callback)
+			client.BeginReceive(state.buffer, 0, StateObject.BufferSize,
+				                0,
+				                new AsyncCallback(myReadCallBack),
+				                state);
+		}
+		else
+		{
+			Debug.Log ("Not connected; Unable to Receive Data.");
+		}
+    }
 	
-	void OnDestroy()
-	{
-		if (client.Connected)
-		{
-			client.Shutdown(SocketShutdown.Both);
-			client.Close ();
-		}
-	}
+    //void OnDestroy()
+    //{
+    //    if (client.Connected)
+    //    {
+    //        client.Shutdown(SocketShutdown.Both);
+    //        client.Close ();
+    //    }
+    //}
 
 	// call back methods
 	public void myWriteCallBack(IAsyncResult ar)
 	{
-		Socket s = (Socket) ar.AsyncState;
+        // when transmitting data, all you do is write to the socket
+        Socket s = (Socket)ar.AsyncState;
 		int send = s.EndSend(ar);
 	}
 	
@@ -122,48 +138,6 @@ public class script: MonoBehaviour
 			// interpret result and act accordingly
 			string response = Encoding.ASCII.GetString(state.buffer, 0, bytesRead);
 			this.response = response.Substring(0,response.Length-2);
-
-            /*
-			if(response.Substring(0,response.Length-2) == "green")
-			{
-				currentColor = Color.green;
-			}
-			else if(response.Substring(0,response.Length-2) == "red")
-			{
-				currentColor = Color.red;
-			}
-			else if(response.Substring(0,response.Length-2) == "black")
-			{
-				currentColor = Color.black;
-			}
-			else if(response.Substring(0,response.Length-2) == "blue")
-			{
-				currentColor = Color.blue;
-			}
-			else if(response.Substring(0,response.Length-2) == "gray")
-			{
-				currentColor = Color.gray;
-			}
-			else if(response.Substring(0,response.Length-2) == "cyan")
-			{
-				currentColor = Color.cyan;
-			}
-			else if(response.Substring(0,response.Length-2) == "magenta")
-			{
-				currentColor = Color.magenta;
-			}
-			else if(response.Substring(0,response.Length-2) == "white")
-			{
-				currentColor = Color.white;
-			}
-			else if(response.Substring(0,response.Length-2) == "yellow")
-			{
-				currentColor = Color.yellow;
-			}
-			else
-			{
-				currentColor = Color.clear;
-			}//*/
 		}
 	}
 	

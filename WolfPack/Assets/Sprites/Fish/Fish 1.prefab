@@ -29,6 +29,7 @@ GameObject:
   - 212: {fileID: 21200000}
   - 114: {fileID: 11400000}
   - 132: {fileID: 13200000}
+  - 61: {fileID: 6100000}
   m_Layer: 0
   m_Name: Fish 1
   m_TagString: Fish
@@ -147,6 +148,17 @@ ParticleRenderer:
     x Tile: 1
     y Tile: 1
     cycles: 1
+--- !u!61 &6100000
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100002}
+  m_Enabled: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Size: {x: 2.1400001, y: 1.77999997}
+  m_Center: {x: 0, y: 0}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -160,6 +172,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hook: {fileID: 0}
   colorName: 
+  isHooked: 0
 --- !u!132 &13200000
 GUIText:
   m_ObjectHideFlags: 1

@@ -47,7 +47,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Necromancer GUI\GUITestScript.js" />
-     <Compile Include="Assets\Scripts\FishScripts\CountDown.js" />
+     <Compile Include="Assets\Scripts\CountDown.js" />
      <Compile Include="Assets\Scripts\FishScripts\Score.js" />
      <Compile Include="Assets\Scripts\SpriteChange.js" />
      <Compile Include="Assets\Scripts\SpriteChange1.js" />

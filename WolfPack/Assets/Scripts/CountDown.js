@@ -19,7 +19,6 @@ function Start ()
 		startTime = 10; // 10 seconds default
 	}
 	guiText.text = "Time: " + numSeconds.ToString();
-	this.SendMessage("StartRecording");
 }
 
 function Update ()
@@ -39,9 +38,7 @@ function Update ()
 			guiText.text = "Time's up";
 			if(!isStopped)
 			{
-                this.SendMessage("TimeUpEvent");
-				this.SendMessage("StopRecording");
-				this.SendMessage("SaveRec");
+                this.SendMessage("TimeUpEvent", SendMessageOptions.DontRequireReceiver);
 			}
 			isStopped = true;
 		}

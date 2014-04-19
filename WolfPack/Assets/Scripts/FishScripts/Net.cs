@@ -1,9 +1,11 @@
 using UnityEngine;
 using System.Collections;
 
-public class FishSpawn : MonoBehaviour {
+public class Net : MonoBehaviour
+{
 	public GameObject Fish;
 	private Color currentColor;
+    public bool isPlaying = false;
 
 	// Use this for initialization
 	void Start ()
@@ -19,17 +21,13 @@ public class FishSpawn : MonoBehaviour {
 		SpawnFish(Color.yellow);
 	}
 
-	// Update is called once per frame
-	void Update ()
-    {
-		/*if(Input.GetKeyDown(KeyCode.Space))
-	    {
-			SpawnFish(Color.green);
-		}//*/
-	}
-
 	void ParseData(string data)
 	{
+        if (!isPlaying)
+        {
+            return;
+        }
+
 		//Debug.Log ("color: " + data);
 		//Color currentColor = Fish.renderer.material.color;
 		if(data == "green")
@@ -75,6 +73,15 @@ public class FishSpawn : MonoBehaviour {
 		CommandFish ();
 		//Fish.renderer.material.color = currentColor;//*/
 	}
+
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.gameObject.tag == "Fish" && col.gameObject.GetComponent<Fish>().isHooked)
+        {
+            PlayerPrefs.SetInt("Score", PlayerPrefs.GetInt("Score") + 1);
+            DestroyObject(this.gameObject);
+        }
+    }
 
 	void CommandFish()
 	{

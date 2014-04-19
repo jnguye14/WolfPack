@@ -8,7 +8,7 @@ using System.Collections;
 public class Mic : MonoBehaviour
 {
 	public string microphoneName = "Built-in Microphone"; // should probably use null for default microphone
-	public bool hasPermission = false;
+	public bool hasPermission = true;//false;
 	public KeyCode startKey = KeyCode.Space;
 	public KeyCode stopKey = KeyCode.Backspace;
 	public KeyCode playKey = KeyCode.Return;
@@ -24,30 +24,30 @@ public class Mic : MonoBehaviour
     }
 
 	// Use this for initialization
-	IEnumerator Start () {
-	//void Start(){
+	//IEnumerator Start () {
+	void Start(){
 //# if UNITY_WEBPLAYER
 		// Request permission to use both webcam and microphone.
-		yield return Application.RequestUserAuthorization (UserAuthorization.Microphone);
+        //yield return Application.RequestUserAuthorization (UserAuthorization.Microphone);
 
-		// TODO: remove "true ||" before official build. temporary for play testing within Unity
-		if (true || Application.HasUserAuthorization(UserAuthorization.Microphone))
-		{
-			// we got permission. Set up microphone.
-			hasPermission = true;
+        //// TODO: remove "true ||" before official build. temporary for play testing within Unity
+        //if (true || Application.HasUserAuthorization(UserAuthorization.Microphone))
+        //{
+        //    // we got permission. Set up microphone.
+        //    hasPermission = true;
 
-			foreach(string device in Microphone.devices)
-			{
-				Debug.Log("Name: " + device);
-			}
-			microphoneName = Microphone.devices[0]; /*"Built-in Microphone"*/
-		}
-		else
-		{
-			// no permission. Show error here.
-			hasPermission = false;
-			Debug.Log("Need permission to use microphone");
-		}
+        //    foreach(string device in Microphone.devices)
+        //    {
+        //        Debug.Log("Name: " + device);
+        //    }
+        //    microphoneName = Microphone.devices[0]; /*"Built-in Microphone"*/
+        //}
+        //else
+        //{
+        //    // no permission. Show error here.
+        //    hasPermission = false;
+        //    Debug.Log("Need permission to use microphone");
+        //}
 //#endif
 
 		/*
@@ -69,7 +69,7 @@ public class Mic : MonoBehaviour
 		sr.SpeechRecognized += new EventHandler<SpeechRecognizedEventArgs>(sr_SpeechRecognized);
 		//*/
 
-		yield return null;
+        //yield return null;
 	}
 
 	/*// event handler
@@ -110,7 +110,7 @@ public class Mic : MonoBehaviour
 		{
 			Debug.Log ("recording");
 		}//*/
-        //*
+        /*
 		if (Input.GetKeyDown (startKey))
 		{
 			StartRecording();
@@ -183,12 +183,7 @@ public class Mic : MonoBehaviour
 			Debug.Log ("Unable to play recording");
 		}
 	}
-
-	void SaveRec()
-	{
-		SaveRecording("MyFile");
-	}
-
+    
 	void SaveRecording(string filename)
 	{
 		if (!hasPermission)
