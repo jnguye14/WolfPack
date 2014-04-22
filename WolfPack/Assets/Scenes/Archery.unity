@@ -171,6 +171,10 @@ Prefab:
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 21200000, guid: b7d28c903beec1e43bbc3bdf5f9719d2, type: 2}
+      propertyPath: m_SortingOrder
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b7d28c903beec1e43bbc3bdf5f9719d2, type: 2}
   m_RootGameObject: {fileID: 1379884600}
@@ -555,7 +559,7 @@ SpriteRenderer:
   m_LightProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 0
   m_SortingLayerID: 0
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -582,7 +586,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   arrow: {fileID: 100000, guid: 8a6950c507d787043ba4d8cfa09d5022, type: 2}
-  curTar: {fileID: 1528026540}
 --- !u!114 &1379884605
 MonoBehaviour:
   m_ObjectHideFlags: 0

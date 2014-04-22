@@ -4,7 +4,11 @@ using System.Collections;
 public class Bow : MonoBehaviour
 {
     public GameObject arrow;
-    public GameObject curTar; // for testing
+    //public GameObject curTar; // for testing
+
+    private Color targetColor; // ready a color
+    private Vector3 targetPos; // aim at position
+
     private float power
     {
         get
@@ -21,20 +25,35 @@ public class Bow : MonoBehaviour
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+    {
         if (Input.GetKeyDown(KeyCode.Space)) // for testing
         {
-            Shoot(curTar);
+            Shoot();
         }
 	}
 
-    void Shoot(GameObject target)
+    void Ready(string s)
     {
-        GameObject a = (GameObject)Instantiate(arrow, this.transform.position, Quaternion.identity);
-        Vector3 direction = target.transform.position - this.transform.position;
+        targetColor = Color.white;
+    }
+
+    void Aim()
+    {
+        targetPos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, this.transform.position.z));
+    }
+
+    void Shoot()
+    {
+        Aim();
+        Vector3 direction = targetPos - this.transform.position;
+        //Vector3 direction = curTar.transform.position - this.transform.position;
         //direction.Normalize();
         // F = m * a;
-        a.transform.LookAt(target.transform);
+        
+        GameObject a = (GameObject)Instantiate(arrow, this.transform.position, Quaternion.identity);
+        //a.transform.LookAt(target.transform);
+        //a.SendMessage("SetTargetColor", targetColor);
         a.rigidbody.AddForce(direction * power);
     }
 }

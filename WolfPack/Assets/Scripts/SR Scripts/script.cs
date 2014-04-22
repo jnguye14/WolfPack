@@ -48,13 +48,6 @@ public class script: MonoBehaviour
             //int messagesent = 1;
         }
 
-		//this.gameObject.renderer.material.color = currentColor;
-		/*if (Input.GetMouseButtonDown (0)) {
-			Debug.Log ("Clicked"); // Just so we could make sure Unity is actually running
-		}//*/
-
-        
-
         if (isGettingData)
         {
             transmitData("GetInput\n");

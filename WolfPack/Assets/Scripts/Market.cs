@@ -98,11 +98,22 @@ of money.
             // icon TOOD figure out best way to implement this, if at all
             if (id != 0 && i.icon != null)
             {
-                tempRect = new Rect(
-                    leftBuffer + width*0.5f,
-                    offset,
-                    width * 0.25f,
-                    height2);
+                if (i.name == "Arrows")
+                {
+                    tempRect = new Rect(
+                        leftBuffer + width * 0.5f,
+                        offset + height2 * 0.33f,
+                        width * 0.25f,
+                        height2 * 0.33f);
+                }
+                else
+                {
+                    tempRect = new Rect(
+                        leftBuffer + width * 0.5f,
+                        offset,
+                        width * 0.25f,
+                        height2);
+                }
                 GUI.DrawTexture(tempRect, i.icon);
             }
 
