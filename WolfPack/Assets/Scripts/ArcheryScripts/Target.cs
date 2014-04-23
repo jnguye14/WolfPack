@@ -14,7 +14,13 @@ public class Target : MonoBehaviour
         {
             PlayerPrefs.SetInt("Money", PlayerPrefs.GetInt("Money") + 100); // earn money
             Destroy(col.gameObject);
-            Destroy(this.gameObject);
+            Invoke("ReturnToMap", 0.5f); // return to the world map in a second
         }
+    }
+
+    void ReturnToMap()
+    {
+        Destroy(this.gameObject);
+        Application.LoadLevel("World Map");
     }
 }

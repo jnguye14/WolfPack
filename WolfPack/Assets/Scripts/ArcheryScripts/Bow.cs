@@ -27,6 +27,17 @@ public class Bow : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
+        // rotate the bow to the mouse angle
+        Vector3 pos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, this.transform.position.z));
+        Vector3 direction = pos - this.transform.position;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        if (angle < 0)
+        {
+            angle += 360.0f;
+        }
+        this.transform.eulerAngles = new Vector3(this.transform.rotation.x,this.transform.rotation.y,angle);
+
+        // Shoot an arrow
         if (Input.GetKeyDown(KeyCode.Space)) // for testing
         {
             Shoot();
@@ -50,8 +61,8 @@ public class Bow : MonoBehaviour
         //Vector3 direction = curTar.transform.position - this.transform.position;
         //direction.Normalize();
         // F = m * a;
-        
-        GameObject a = (GameObject)Instantiate(arrow, this.transform.position, Quaternion.identity);
+
+        GameObject a = (GameObject)Instantiate(arrow, this.transform.position, this.transform.rotation);//Quaternion.identity);
         //a.transform.LookAt(target.transform);
         //a.SendMessage("SetTargetColor", targetColor);
         a.rigidbody.AddForce(direction * power);
